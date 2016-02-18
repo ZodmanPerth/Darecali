@@ -5,18 +5,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Darecali.Recurrer
+namespace Darecali.Strategy
 {
-    public class EveryNthDay
+    public class EveryNthDayStrategy : IRecurrenceStrategy
     {
         DateTime _currentDate;
         int _n;
         bool _hasMovedNext;
 
-        public EveryNthDay(DateTime startDate, int n = 1)
+        public EveryNthDayStrategy(int n = 1)
+        {
+            _n = n;
+        }
+
+        public void SetStartDate(DateTime startDate)
         {
             _currentDate = startDate;
-            _n = n;
+            _hasMovedNext = false;
         }
 
         public DateTime GetNextDate()
@@ -27,6 +32,5 @@ namespace Darecali.Recurrer
                 _currentDate = _currentDate.AddDays(_n);
             return _currentDate;
         }
-
     }
 }
