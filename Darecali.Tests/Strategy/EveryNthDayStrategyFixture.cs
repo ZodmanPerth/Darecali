@@ -17,19 +17,21 @@ namespace Darecali.Tests.Strategy
         [Test]
         public void BackwardsEveryDayTest()
         {
-            var sut = Factory.CreateController(DateTime.Today, "D-1");
-            sut.GetNextDate().ShouldBe(DateTime.Today.AddDays(0), "should be today");
-            sut.GetNextDate().ShouldBe(DateTime.Today.AddDays(-1), "should be yesterday");
-            sut.GetNextDate().ShouldBe(DateTime.Today.AddDays(-2), "should be the day before yesterday");
+            var sut = Factory.CreateController(DateTime.Today, "D-1")
+                .Take(3).ToList();
+            sut[0].ShouldBe(DateTime.Today.AddDays(0), "should be today");
+            sut[1].ShouldBe(DateTime.Today.AddDays(-1), "should be yesterday");
+            sut[2].ShouldBe(DateTime.Today.AddDays(-2), "should be the day before yesterday");
         }
 
         [Test]
         public void StaticDayTest()
         {
-            var sut = Factory.CreateController(DateTime.Today, "D0");
-            sut.GetNextDate().ShouldBe(DateTime.Today, "should be today");
-            sut.GetNextDate().ShouldBe(DateTime.Today, "should be today #2");
-            sut.GetNextDate().ShouldBe(DateTime.Today, "should be today #3");
+            var sut = Factory.CreateController(DateTime.Today, "D0")
+                .Take(3).ToList();
+            sut[0].ShouldBe(DateTime.Today, "should be today");
+            sut[1].ShouldBe(DateTime.Today, "should be today #2");
+            sut[2].ShouldBe(DateTime.Today, "should be today #3");
         }
 
         #endregion
@@ -38,28 +40,31 @@ namespace Darecali.Tests.Strategy
         [TestCase("D1", TestName = "Explicit Every Day Test")]
         public void EveryDayTest(string definition)
         {
-            var sut = Factory.CreateController(DateTime.Today, definition);
-            sut.GetNextDate().ShouldBe(DateTime.Today.AddDays(0), "should be today");
-            sut.GetNextDate().ShouldBe(DateTime.Today.AddDays(1), "should be tomorrow");
-            sut.GetNextDate().ShouldBe(DateTime.Today.AddDays(2), "should be the day after tomorrow");
+            var sut = Factory.CreateController(DateTime.Today, definition)
+                .Take(3).ToList();
+            sut[0].ShouldBe(DateTime.Today.AddDays(0), "should be today");
+            sut[1].ShouldBe(DateTime.Today.AddDays(1), "should be tomorrow");
+            sut[2].ShouldBe(DateTime.Today.AddDays(2), "should be the day after tomorrow");
         }
 
         [Test]
         public void EverySecondDayTest()
         {
-            var sut = Factory.CreateController(DateTime.Today, "D2");
-            sut.GetNextDate().ShouldBe(DateTime.Today.AddDays(0), "should be today");
-            sut.GetNextDate().ShouldBe(DateTime.Today.AddDays(2), "should be today + 2");
-            sut.GetNextDate().ShouldBe(DateTime.Today.AddDays(4), "should be today + 4");
+            var sut = Factory.CreateController(DateTime.Today, "D2")
+                .Take(3).ToList();
+            sut[0].ShouldBe(DateTime.Today.AddDays(0), "should be today");
+            sut[1].ShouldBe(DateTime.Today.AddDays(2), "should be today + 2");
+            sut[2].ShouldBe(DateTime.Today.AddDays(4), "should be today + 4");
         }
 
         [Test]
         public void EveryThirdDayTest()
         {
-            var sut = Factory.CreateController(DateTime.Today, "D3");
-            sut.GetNextDate().ShouldBe(DateTime.Today.AddDays(0), "should be today");
-            sut.GetNextDate().ShouldBe(DateTime.Today.AddDays(3), "should be today + 3");
-            sut.GetNextDate().ShouldBe(DateTime.Today.AddDays(6), "should be today + 6");
+            var sut = Factory.CreateController(DateTime.Today, "D3")
+                .Take(3).ToList();
+            sut[0].ShouldBe(DateTime.Today.AddDays(0), "should be today");
+            sut[1].ShouldBe(DateTime.Today.AddDays(3), "should be today + 3");
+            sut[2].ShouldBe(DateTime.Today.AddDays(6), "should be today + 6");
         }
     }
 }

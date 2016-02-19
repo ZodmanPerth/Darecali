@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FactoryFixture.cs" />
+    <Compile Include="RecurrenceControllerFixture.cs" />
     <Compile Include="Strategy\EveryNthDayStrategyFixture.cs" />
   </ItemGroup>
   <ItemGroup>
