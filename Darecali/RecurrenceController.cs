@@ -30,22 +30,18 @@ namespace Darecali
 
         public IEnumerator<DateTime> GetEnumerator()
         {
-            if (_numberOfOccurrences.HasValue)
-                for (int i = 0; i < _numberOfOccurrences; i++)
-                {
-                    var nextDate = _strategy.GetNextDate();
-                    if (_endDate.HasValue && nextDate > _endDate)
-                        break;
-                    yield return nextDate;
-                }
-            else
-                while (true)
-                {
-                    var nextDate = _strategy.GetNextDate();
-                    if (_endDate.HasValue && nextDate > _endDate)
-                        break;
-                    yield return nextDate;
-                }
+            int numberOfOccurrencesReturned = 0;
+            while (true)
+            {
+                var nextDate = _strategy.GetNextDate();
+                if (_endDate.HasValue && nextDate > _endDate)
+                    break;
+
+                yield return nextDate;
+
+                if (_numberOfOccurrences.HasValue && ++numberOfOccurrencesReturned == _numberOfOccurrences)
+                    break;
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
