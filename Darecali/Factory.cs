@@ -35,7 +35,8 @@ namespace Darecali
                     {
                         var remainder = strategyDefinition.Substring(1);
                         if (remainder == "wd")
-                            return new EveryWeekDayStrategy();
+                            return new EveryNthWeekOnSpecificDaysStrategy(DayOfWeekFlags.WeekDays);
+
                         if (!int.TryParse(remainder, out n))
                             throw new InvalidStrategyDefinitionException();
                     }

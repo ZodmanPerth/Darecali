@@ -44,7 +44,6 @@
     <Compile Include="RecurrenceController.cs" />
     <Compile Include="Factory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Strategy\EveryWeekDayStrategy.cs" />
     <Compile Include="Strategy\EveryNthWeekOnSpecificDaysStrategy.cs" />
     <Compile Include="Strategy\EveryNthDayStrategy.cs" />
     <Compile Include="Strategy\IRecurrenceStrategy.cs" />
