@@ -20,7 +20,7 @@ namespace Darecali.Strategy
 
         public void SetStartDate(DateTime startDate)
         {
-            _currentDate = startDate;
+            _currentDate = startDate.Date;
             _hasMovedNext = false;
         }
 
