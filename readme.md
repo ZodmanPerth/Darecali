@@ -36,8 +36,9 @@ Call `Factory.GetStrategyDefinitionUsage()` to get the usage message:
 
 ```
 D[n]       - Daily : every n days, where n is an integer (default is 1)"
+Dwd        - Daily : every weekday
 W[n]       - Weekly: every day, every n weeks, where n is an integer (default is 1)
 W[1-127,n] - Weekly: flagged days (default is every day), every n weeks, where n is an integer (default is 1)
 ```
 
->NOTE: The useage message will be shown in an exception if the provided definition cannot be parsed.
+>NOTE: The useage message will be shown in an exception if the provided strategy definition is invalid.

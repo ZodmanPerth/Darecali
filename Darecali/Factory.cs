@@ -34,10 +34,13 @@ namespace Darecali
                     if (strategyDefinition.Length > 1)
                     {
                         var remainder = strategyDefinition.Substring(1);
+                        if (remainder == "wd")
+                            return new EveryWeekDayStrategy();
                         if (!int.TryParse(remainder, out n))
                             throw new InvalidStrategyDefinitionException();
                     }
                     return new EveryNthDayStrategy(n);
+
                 case 'W':
                     int dayFlags = (int)DayOfWeekFlags.EveryDay;
                     n = 1;
@@ -75,6 +78,7 @@ namespace Darecali
             var sb = new StringBuilder();
             sb.AppendLine("Usage:");
             sb.AppendLine("D[n]       - Daily : every n days, where n is an integer (default is 1)");
+            sb.AppendLine("Dwd        - Daily : every weekday");
             sb.AppendLine("W[n]       - Weekly: every day, every n weeks, where n is an integer (default is 1)");
             sb.AppendLine("W[1-127,n] - Weekly: flagged days (default is every day), every n weeks, where n is an integer (default is 1)");
 
