@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Darecali.Tests
 {
-    [Category("RecurrenceController")]
-    public class RecurrenceControllerFixture
+    [Category("SequenceController")]
+    public class SequenceControllerFixture
     {
         [Test]
         public void TerminatesAtEndDate()

@@ -36,11 +36,12 @@ The `Factory` can also create instances of `IRecurrenceStrategy` using the Strat
 Call `Factory.GetStrategyDefinitionUsage()` to get the usage message, containing the syntax of the Strategy Definition Language:
 
 ```
-D[n]       - Daily : every n days, where n is an integer (default is 1)"
-Dwd        - Daily : every weekday
-Dwe        - Daily : every weekend day
-W[n]       - Weekly: every day, every n weeks, where n is an integer (default is 1)
-W[1-127,n] - Weekly: on flagged days (default is every day), every n weeks, where n is an integer (default is 1)
+D[n]              - Daily  : every n days, where n is an integer (default is 1)
+Dwd               - Daily  : every weekday
+Dwe               - Daily  : every weekend day
+W[n]              - Weekly : every day, every n weeks, where n is an integer (default is 1)
+W[1-127[,n]]      - Weekly : on flagged days (default is every day), every n weeks, where n is an integer (default is 1)
+M[dayOfMonth[,n]] - Monthly: on dayOfMonth, every n months, where dayOfMonth is an integer between 1 and 31 inclusive (default is 1), and n is a positive integer (default is 1)
 ```
 
->NOTE: The usage message will also be shown in an `InvalidStrategyDefinitionException` if the provided strategy definition is invalid.
+>NOTE: The usage message will also be part of an `InvalidStrategyDefinitionException` if the provided strategy definition is invalid.
