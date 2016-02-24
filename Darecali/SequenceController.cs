@@ -8,14 +8,14 @@ using System.Collections;
 
 namespace Darecali
 {
-    public class RecurrenceController : IEnumerable<DateTime>
+    public class SequenceController : IEnumerable<DateTime>
     {
         DateTime _startDate;
         IRecurrenceStrategy _strategy;
         DateTime? _endDate;
         int? _numberOfOccurrences;
 
-        public RecurrenceController(DateTime startDate, IRecurrenceStrategy strategy, DateTime? endDate = null, int? numberOfOccurrences = null)
+        public SequenceController(DateTime startDate, IRecurrenceStrategy strategy, DateTime? endDate = null, int? numberOfOccurrences = null)
         {
             if (strategy == null) throw new ArgumentNullException("strategy");
             if (numberOfOccurrences <= 0) throw new ArgumentOutOfRangeException("numberOfOccurrences");

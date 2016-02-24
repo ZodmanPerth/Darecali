@@ -9,15 +9,15 @@ namespace Darecali
 {
     public static class Factory
     {
-        public static RecurrenceController CreateController(DateTime startDate, string strategyDefinition, DateTime? endDate = null, int? numberOfOccurrences = null)
+        public static SequenceController CreateController(DateTime startDate, string strategyDefinition, DateTime? endDate = null, int? numberOfOccurrences = null)
         {
             return CreateController(startDate, CreateStrategy(strategyDefinition), endDate, numberOfOccurrences);
         }
 
-        public static RecurrenceController CreateController(DateTime startDate, IRecurrenceStrategy strategy, DateTime? endDate = null, int? numberOfOccurrences = null)
+        public static SequenceController CreateController(DateTime startDate, IRecurrenceStrategy strategy, DateTime? endDate = null, int? numberOfOccurrences = null)
         {
             if (strategy == null) throw new ArgumentNullException("strategy");
-            return new RecurrenceController(startDate, strategy, endDate, numberOfOccurrences);
+            return new SequenceController(startDate, strategy, endDate, numberOfOccurrences);
         }
 
         public static IRecurrenceStrategy CreateStrategy(string strategyDefinition)
@@ -34,8 +34,12 @@ namespace Darecali
                     if (strategyDefinition.Length > 1)
                     {
                         var remainder = strategyDefinition.Substring(1);
+
                         if (remainder == "wd")
                             return new EveryNthWeekOnSpecificDaysStrategy(DayOfWeekFlags.WeekDays);
+
+                        if (remainder == "we")
+                            return new EveryNthWeekOnSpecificDaysStrategy(DayOfWeekFlags.WeekendDays);
 
                         if (!int.TryParse(remainder, out n))
                             throw new InvalidStrategyDefinitionException();
@@ -80,8 +84,9 @@ namespace Darecali
             sb.AppendLine("Usage:");
             sb.AppendLine("D[n]       - Daily : every n days, where n is an integer (default is 1)");
             sb.AppendLine("Dwd        - Daily : every weekday");
+            sb.AppendLine("Dwe        - Daily : every weekend day");
             sb.AppendLine("W[n]       - Weekly: every day, every n weeks, where n is an integer (default is 1)");
-            sb.AppendLine("W[1-127,n] - Weekly: flagged days (default is every day), every n weeks, where n is an integer (default is 1)");
+            sb.AppendLine("W[1-127,n] - Weekly: on flagged days (default is every day), every n weeks, where n is an integer (default is 1)");
 
             return sb.ToString();
         }

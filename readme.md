@@ -1,44 +1,46 @@
-Darecali
-==
+
+# Darecali
+
 **DA**TE **RE**CURRENCE **CA**LCULATION **LI**BRARY
 
-Pronounced **dah-rec-ah-lee**, like the word "directly" but without the "t".
+Pronounced **dah-rec-ah-lee**, like "directly" but without the "t".
 
-Produces sequences of dates using a recurrence strategy.  Sequence controllers allow for finite and infinte sequences.
+Produces sequences of dates using a specified recurrence strategy.  Sequence controllers determine if and how a date sequence terminates.
 
-Based on Microsoft Outlook Implementation
---
-Sequence controllers determine if and how a date sequence terminates:
+Provides support for all recurrence strategies available in Microsoft Outlook, and then some.
+
+## Sequence control options
 
 * Non-terminating (infinite sequence; no end date)
-* Terminates at a specific (end) date
-* Terminates after a specified number of occurrences 
+* Terminates at a specified date
+* Terminates after a specified number of occurrences
+* Terminates at either an end date or a number of occurrences, whichever comes first
 
-Recurrence strategies determine how a date sequence unfolds:
+## Recurrence strategies
 
-* Daily, every N days
-* Weekly, every N weeks on specified days
+* Daily
+ * Every _{n}_ days
+ * Every weekday
+ * Every weekend day
+* Weekly
+ * Every _{n}_ weeks on specified days of the week
 
-Additional Features
---
- 
-* Sequence controllers can specify an end date **and** a number of occurrences; whichever comes first terminates the sequence.
-* Create recurrence strategies using a strategy definition language (see below)
+## Specifying a strategy
 
-Strategy Definition Language
---
-
-Use the Darecali `Factory` to create a `RecurrenceController` with either
+Use the `Factory` to create a `SequenceController` with either:
 * a concrete instance of an `IRecurrenceStrategy`, or
-* use the Strategy Definition Language to have one created for you.  
+* use the Strategy Definition Language to have one created for you.
 
-Call `Factory.GetStrategyDefinitionUsage()` to get the usage message:
+The `Factory` can also create instances of `IRecurrenceStrategy` using the Strategy Definition Language.  Alternatively, you can create them directly yourself..  
+
+Call `Factory.GetStrategyDefinitionUsage()` to get the usage message, containing the syntax of the Strategy Definition Language:
 
 ```
 D[n]       - Daily : every n days, where n is an integer (default is 1)"
 Dwd        - Daily : every weekday
+Dwe        - Daily : every weekend day
 W[n]       - Weekly: every day, every n weeks, where n is an integer (default is 1)
-W[1-127,n] - Weekly: flagged days (default is every day), every n weeks, where n is an integer (default is 1)
+W[1-127,n] - Weekly: on flagged days (default is every day), every n weeks, where n is an integer (default is 1)
 ```
 
->NOTE: The useage message will be shown in an exception if the provided strategy definition is invalid.
+>NOTE: The usage message will also be shown in an `InvalidStrategyDefinitionException` if the provided strategy definition is invalid.
