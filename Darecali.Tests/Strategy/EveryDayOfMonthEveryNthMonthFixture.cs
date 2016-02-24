@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Darecali.Tests.Strategy
 {
     [Category("Strategy")]
-    public class EveryDayOMonthEveryNthMonthFixture
+    public class EveryDayOfMonthEveryNthMonthFixture
     {
         #region Exception tests
 
@@ -19,7 +19,7 @@ namespace Darecali.Tests.Strategy
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentOutOfRangeException>(() =>
             {
-                var sut = new EveryDayOMonthEveryNthMonthStrategy(0);
+                var sut = new EveryDayOfMonthEveryNthMonthStrategy(0);
             });
         }
 
@@ -28,7 +28,7 @@ namespace Darecali.Tests.Strategy
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentOutOfRangeException>(() =>
             {
-                var sut = new EveryDayOMonthEveryNthMonthStrategy(32);
+                var sut = new EveryDayOfMonthEveryNthMonthStrategy(32);
             });
         }
 
@@ -37,7 +37,7 @@ namespace Darecali.Tests.Strategy
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentOutOfRangeException>(() =>
             {
-                var sut = new EveryDayOMonthEveryNthMonthStrategy(30, 0);
+                var sut = new EveryDayOfMonthEveryNthMonthStrategy(30, 0);
             });
         }
 

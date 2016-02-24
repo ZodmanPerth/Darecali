@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Darecali.Strategy
 {
-    public class EveryDayOMonthEveryNthMonthStrategy : IRecurrenceStrategy
+    public class EveryDayOfMonthEveryNthMonthStrategy : IRecurrenceStrategy
     {
         DateTime _currentDate;
         int _dayOfMonth;
         int _n;
         bool _hasMovedNext;
 
-        public EveryDayOMonthEveryNthMonthStrategy(int dayOfMonth = 1, int n = 1)
+        public EveryDayOfMonthEveryNthMonthStrategy(int dayOfMonth = 1, int n = 1)
         {
             if (dayOfMonth < 1 || dayOfMonth > 31)
                 throw new ArgumentOutOfRangeException("dayOfMonth is outside of the valid range");

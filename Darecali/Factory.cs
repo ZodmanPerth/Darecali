@@ -98,7 +98,7 @@ namespace Darecali
                                 throw new InvalidStrategyDefinitionException();
                     }
 
-                    return new EveryDayOMonthEveryNthMonthStrategy(dayOfMonth, n);
+                    return new EveryDayOfMonthEveryNthMonthStrategy(dayOfMonth, n);
             }
 
             throw new InvalidStrategyDefinitionException();
