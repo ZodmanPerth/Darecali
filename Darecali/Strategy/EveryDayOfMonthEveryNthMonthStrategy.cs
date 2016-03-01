@@ -36,10 +36,8 @@ namespace Darecali.Strategy
             if (!_hasMovedNext)
                 _hasMovedNext = true;
             else
-            {
-                _currentDate = new DateTime(_currentDate.Year, _currentDate.Month, 1);
-                _currentDate = _currentDate.AddMonths(_n);
-            }
+                _currentDate = new DateTime(_currentDate.Year, _currentDate.Month, 1)
+                    .AddMonths(_n);
 
             while (_currentDate.Day != _dayOfMonth)
                 _currentDate = _currentDate.AddDays(1);
