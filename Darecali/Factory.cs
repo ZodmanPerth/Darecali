@@ -90,16 +90,12 @@ namespace Darecali
                         if (args.Length < 1 || args.Length > 3)
                             throw new InvalidStrategyDefinitionException();
 
-                        if (args.Length == 1)
+                        if (args.Length < 3)
                             if (!int.TryParse(args[0], out dayOfMonth))
                                 throw new InvalidStrategyDefinitionException();
 
                         if (args.Length == 2)
-                            if
-                            (
-                                !int.TryParse(args[0], out dayOfMonth)
-                                || !int.TryParse(args[1], out n)
-                            )
+                            if (!int.TryParse(args[1], out n))
                                 throw new InvalidStrategyDefinitionException();
 
                         if (args.Length == 3)
@@ -141,8 +137,33 @@ namespace Darecali
                     }
 
                     return new EveryDayOfMonthEveryNthMonthStrategy(dayOfMonth, n);
-            }
 
+                case 'Y':
+                    int day = 1;
+                    int month = 1;
+                    n = 1;
+                    if (strategyDefinition.Length > 1)
+                    {
+                        var remainder = strategyDefinition.Substring(1);
+                        var args = remainder.Split(',');
+
+                        if (args.Length > 3)
+                            throw new InvalidStrategyDefinitionException();
+
+                        if (!int.TryParse(args[0], out month))
+                            throw new InvalidStrategyDefinitionException();
+
+                        if (args.Length > 1)
+                            if (!int.TryParse(args[1], out day))
+                                throw new InvalidStrategyDefinitionException();
+
+                        if (args.Length > 2)
+                            if (!int.TryParse(args[2], out n))
+                                throw new InvalidStrategyDefinitionException();
+                    }
+
+                    return new EveryNthYearOnSpecificMonthAndDayStrategy(month, day, n);
+            }
             throw new InvalidStrategyDefinitionException();
         }
 
@@ -151,16 +172,16 @@ namespace Darecali
             var sb = new StringBuilder();
             sb.AppendLine("Usage:");
             sb.AppendLine("D[n]                  - Daily  : every n day(s)");
-            sb.AppendLine("                                 where n is an integer(default is 1)");
+            sb.AppendLine("                                 where n is an integer (default is 1)");
             sb.AppendLine("Dwd                   - Daily  : every weekday");
             sb.AppendLine("Dwe                   - Daily  : every weekend day");
             sb.AppendLine("W[n]                  - Weekly : every day, every n week(s)");
-            sb.AppendLine("                                 where n is an integer(default is 1)");
-            sb.AppendLine("W[1-127[, n]]         - Weekly : every n week(s) on specified days");
+            sb.AppendLine("                                 where n is an integer (default is 1)");
+            sb.AppendLine("W[1-127[,n]]          - Weekly : every n week(s) on specified days");
             sb.AppendLine("                                 where specified days are bitwise flags (Sunday = 1)");
-            sb.AppendLine("                                       n is an integer(default is 1)");
-            sb.AppendLine("M[1-31[, n]]          - Monthly: on dayOfMonth every n month(s)");
-            sb.AppendLine("                                 where dayOfMonth is an integer 1-31 inclusive (default is 1)");
+            sb.AppendLine("                                       n is an integer (default is 1)");
+            sb.AppendLine("M[1-31[,n]]           - Monthly: on dayOfMonth every n month(s)");
+            sb.AppendLine("                                 where dayOfMonth is an integer 1-31 (default is 1)");
             sb.AppendLine("                                       n is a positive integer (default is 1)");
             sb.AppendLine("M1-4|L,1-7|d|wd|we,n: - Monthly: the frequency specialDay of every n months");
             sb.AppendLine("                                 where frequency is 1-4 for First-Fourth");
@@ -170,7 +191,10 @@ namespace Darecali
             sb.AppendLine("                                                  or 'wd' for weekday");
             sb.AppendLine("                                                  or 'we' for weekend day");
             sb.AppendLine("                                       n is a positive integer");
-
+            sb.AppendLine("Y[1-12[,1-31[,n]]]    - Yearly : every n year(s) on the specified month and day");
+            sb.AppendLine("                                 where month is 1-12 (default is 1)");
+            sb.AppendLine("                                 where day is 1-31 (default is 1)");
+            sb.AppendLine("                                 where n is a positive integer (default is 1)");
 
             return sb.ToString();
         }

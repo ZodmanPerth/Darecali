@@ -46,6 +46,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strategy\EveryDayOfMonthEveryNthMonthStrategy.cs" />
     <Compile Include="Strategy\EveryFrequencySpecialDayOfEveryNthMonthStrategy.cs" />
+    <Compile Include="Strategy\EveryNthYearOnSpecificMonthAndDayStrategy .cs" />
     <Compile Include="Strategy\EveryNthWeekOnSpecificDaysStrategy.cs" />
     <Compile Include="Strategy\EveryNthDayStrategy.cs" />
     <Compile Include="Strategy\IRecurrenceStrategy.cs" />

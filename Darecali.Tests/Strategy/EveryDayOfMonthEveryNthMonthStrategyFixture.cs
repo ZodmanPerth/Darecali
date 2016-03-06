@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Darecali.Tests.Strategy
 {
     [Category("Strategy")]
-    public class EveryDayOfMonthEveryNthMonthFixture
+    public class EveryDayOfMonthEveryNthMonthStrategyFixture
     {
         #region Exception tests
 

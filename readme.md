@@ -39,25 +39,29 @@ Call `Factory.GetStrategyDefinitionUsage()` to get the usage message, containing
 
 ```
 D[n]                  - Daily  : every n day(s)
-                                 where n is an integer(default is 1)
+                                 where n is an integer (default is 1)
 Dwd                   - Daily  : every weekday
 Dwe                   - Daily  : every weekend day
 W[n]                  - Weekly : every day, every n week(s)
-                                 where n is an integer(default is 1)
-W[1-127[, n]]         - Weekly : every n week(s) on specified days
+                                 where n is an integer (default is 1)
+W[1-127[,n]]          - Weekly : every n week(s) on specified days
                                  where specified days are bitwise flags (Sunday = 1)
-                                       n is an integer(default is 1)
-M[1-31[, n]]          - Monthly: on dayOfMonth every n month(s)
-                                 where dayOfMonth is an integer 1-31 inclusive (default is 1)
+                                       n is an integer (default is 1)
+M[1-31[,n]]           - Monthly: on dayOfMonth every n month(s)
+                                 where dayOfMonth is an integer 1-31 (default is 1)
                                        n is a positive integer (default is 1)
 M1-4|L,1-7|d|wd|we,n: - Monthly: the frequency specialDay of every n months
                                  where frequency is 1-4 for First-Fourth
-                                                 or 'L' for last
+                                                 or 'L' for Last
                                        specialDay is 1-7 for Sunday-Monday
                                                   or 'd' for day
                                                   or 'wd' for weekday
                                                   or 'we' for weekend day
                                        n is a positive integer
+Y[1-12[,1-31[,n]]]    - Yearly : every n year(s) on the specified month and day
+                                 where month is 1-12 (default is 1)
+                                 where day is 1-31 (default is 1)
+                                 where n is a positive integer (default is 1)
 ```
 
 >NOTE: The usage message will also be part of an `InvalidStrategyDefinitionException` if the provided strategy definition is invalid.
