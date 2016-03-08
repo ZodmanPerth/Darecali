@@ -12,6 +12,8 @@ namespace Darecali.Tests
     [Category("Factory")]
     public class FactoryFixture
     {
+        #region Basic Factory Tests
+
         [Test]
         public void CreateControllerWithNullStrategyThrows()
         {
@@ -30,7 +32,50 @@ namespace Darecali.Tests
             });
         }
 
+        #endregion
+
+        #region Every Nth Day tests
+
+        #region Optional Parameter tests
+
+        [Test]
+        public void NthDay_NoParamTest()
+        {
+            var startDate = new DateTime(2016, 03, 08);
+            var sut = Factory.CreateController(startDate, "D")
+                .Take(3).ToList();
+            sut[0].ShouldBe(new DateTime(2016, 03, 08));
+            sut[1].ShouldBe(new DateTime(2016, 03, 09));
+            sut[2].ShouldBe(new DateTime(2016, 03, 10));
+        }
+
+        [Test]
+        public void NthDay_OneParamTest()
+        {
+            var startDate = new DateTime(2016, 03, 08);
+            var sut = Factory.CreateController(startDate, "D2")
+                .Take(3).ToList();
+            sut[0].ShouldBe(new DateTime(2016, 03, 08));
+            sut[1].ShouldBe(new DateTime(2016, 03, 10));
+            sut[2].ShouldBe(new DateTime(2016, 03, 12));
+        }
+
+        [Test]
+        public void NthDay_TooManyParamsTest()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("D5,2");
+            });
+        }
+
+        #endregion
+
+        #endregion
+
         #region Every Nth Year tests
+
+        #region Optional Parameter tests
 
         [Test]
         public void NthYear_NoParamTest()
@@ -78,7 +123,11 @@ namespace Darecali.Tests
 
         #endregion
 
+        #endregion
+
         #region Yearly with frequency, special day, month, and n tests
+
+        #region Exceptions
 
         [Test]
         public void YearlyFrequency_ShouldThrowWhenFrequencyLessThan1Test()
@@ -151,6 +200,8 @@ namespace Darecali.Tests
                 var sut = Factory.CreateStrategy("Y1,1,13,-1");
             });
         }
+
+        #endregion
 
         #endregion
     }
