@@ -122,54 +122,6 @@ namespace Darecali.Tests.Strategy
 
         #endregion
 
-        #region Factory Parameter tests
-
-        [Test]
-        public void NoParamTest()
-        {
-            var startDate = new DateTime(2016, 03, 03);
-            var sut = Factory.CreateController(startDate, "Y")
-                .Take(3).ToList();
-            sut[0].ShouldBe(new DateTime(2017, 01, 01), "should be January 1, 2017");
-            sut[1].ShouldBe(new DateTime(2018, 01, 01), "should be January 1, 2018");
-            sut[2].ShouldBe(new DateTime(2019, 01, 01), "should be January 1, 2019");
-        }
-
-        [Test]
-        public void OneParamTest()
-        {
-            var startDate = new DateTime(2016, 03, 03);
-            var sut = Factory.CreateController(startDate, "Y11")
-                .Take(3).ToList();
-            sut[0].ShouldBe(new DateTime(2016, 11, 01), "should be November 1, 2016");
-            sut[1].ShouldBe(new DateTime(2017, 11, 01), "should be November 1, 2017");
-            sut[2].ShouldBe(new DateTime(2018, 11, 01), "should be November 1, 2018");
-        }
-
-        [Test]
-        public void TwoParamTest()
-        {
-            var startDate = new DateTime(2016, 03, 03);
-            var sut = Factory.CreateController(startDate, "Y11,11")
-                .Take(3).ToList();
-            sut[0].ShouldBe(new DateTime(2016, 11, 11), "should be November 11, 2016");
-            sut[1].ShouldBe(new DateTime(2017, 11, 11), "should be November 11, 2017");
-            sut[2].ShouldBe(new DateTime(2018, 11, 11), "should be November 11, 2018");
-        }
-
-        [Test]
-        public void ThreeParamTest()
-        {
-            var startDate = new DateTime(2016, 03, 03);
-            var sut = Factory.CreateController(startDate, "Y11,11,3")
-                .Take(3).ToList();
-            sut[0].ShouldBe(new DateTime(2016, 11, 11), "should be November 11, 2016");
-            sut[1].ShouldBe(new DateTime(2019, 11, 11), "should be November 11, 2019");
-            sut[2].ShouldBe(new DateTime(2022, 11, 11), "should be November 11, 2022");
-        }
-
-        #endregion
-
         [Test]
         public void EveryOctober6EveryYearTest()
         {

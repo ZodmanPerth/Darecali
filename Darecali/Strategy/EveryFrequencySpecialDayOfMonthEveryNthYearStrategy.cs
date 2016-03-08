@@ -7,20 +7,24 @@ using System.Threading.Tasks;
 
 namespace Darecali.Strategy
 {
-    public class EveryFrequencySpecialDayOfEveryNthMonthStrategy : IRecurrenceStrategy
+    public class EveryFrequencySpecialDayOfMonthEveryNthYearStrategy : IRecurrenceStrategy
     {
         DateTime _currentDate;
         Frequency _frequency;
         SpecialDay _specialDay;
+        int _month;
         int _n;
 
-        public EveryFrequencySpecialDayOfEveryNthMonthStrategy(Frequency frequency = Frequency.First, SpecialDay specialDay = SpecialDay.WeekDay, int n = 1)
+        public EveryFrequencySpecialDayOfMonthEveryNthYearStrategy(Frequency frequency = Frequency.First, SpecialDay specialDay = SpecialDay.WeekDay, int month = 1, int n = 1)
         {
-            if (n < 1)
-                throw new ArgumentOutOfRangeException("n must be a positive integer");
+            if (!Enum.IsDefined(typeof(Frequency), frequency)) throw new ArgumentException("frequency");
+            if (!Enum.IsDefined(typeof(SpecialDay), specialDay)) throw new ArgumentException("specialDay");
+            if (month < 1 || month > 12) throw new ArgumentOutOfRangeException("month");
+            if (n < 1) throw new ArgumentOutOfRangeException("n must be a positive integer");
 
             _frequency = frequency;
             _specialDay = specialDay;
+            _month = month;
             _n = n;
         }
 
@@ -33,14 +37,19 @@ namespace Darecali.Strategy
         {
             int frequency = _frequency == Frequency.Last ? 99 : (int)_frequency;
             int occurrence = 0;
-            int currentMonth = _currentDate.Month;
             DateTime? lastMatch = null;
+
+            var thisYear = new DateTime(_currentDate.Year, _month, 1);
+            if (_currentDate < thisYear)
+                _currentDate = thisYear;
+            else if (_currentDate.Month != _month)
+                _currentDate = new DateTime(_currentDate.Year + _n, _month, 1);
 
             do
             {
                 do
                 {
-                    while (!IsMatch() && _currentDate.Month == currentMonth)
+                    while (!IsMatch() && _currentDate.Month == _month)
                         _currentDate = _currentDate.AddDays(1);
 
                     if (IsMatch())
@@ -55,19 +64,19 @@ namespace Darecali.Strategy
                             _currentDate = _currentDate.AddDays(1);
                         }
                     }
-                } while (occurrence != frequency && _currentDate.Month == currentMonth);
+                } while (occurrence != frequency && _currentDate.Month == _month);
 
                 if (lastMatch.HasValue)
                 {
-                    if (_currentDate.Month == currentMonth)
+                    if (_currentDate.Month == _month)
                         _currentDate = _currentDate.AddDays(1 - _currentDate.Day)
-                            .AddMonths(_n);
+                            .AddYears(_n);
 
                     return lastMatch.Value;
                 }
 
                 occurrence = 0;
-                currentMonth = _currentDate.Month;
+                _currentDate = new DateTime(_currentDate.Year + _n, _month, 1);
 
             } while (true);
         }

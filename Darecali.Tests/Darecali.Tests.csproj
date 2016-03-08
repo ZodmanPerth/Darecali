@@ -51,11 +51,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FactoryFixture.cs" />
     <Compile Include="SequenceControllerFixture.cs" />
+    <Compile Include="Strategy\EveryFrequencySpecialDayOfMonthEveryNthYearStrategyFixture.cs" />
     <Compile Include="Strategy\EveryNthYearOnSpecificMonthAndDayStrategyFixture.cs" />
     <Compile Include="Strategy\EveryFrequencySpecialDayOfEveryNthMonthStrategyFixture.cs" />
     <Compile Include="Strategy\EveryDayOfMonthEveryNthMonthStrategyFixture.cs" />
-    <Compile Include="Strategy\EveryWeekEndDayFixture.cs" />
-    <Compile Include="Strategy\EveryWeekDayFixture.cs" />
+    <Compile Include="Strategy\EveryWeekEndDayStrategyFixture.cs" />
+    <Compile Include="Strategy\EveryWeekDayStrategyFixture.cs" />
     <Compile Include="Strategy\EveryNthWeekOnSpecificDaysStrategyFixture.cs" />
     <Compile Include="Strategy\EveryNthDayStrategyFixture.cs" />
   </ItemGroup>

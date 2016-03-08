@@ -51,7 +51,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void ShouldThrowWhenFrequencyNotValidLetterTest()
+        public void ShouldThrowWhenSpecialDayNotValidLetterTest()
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
             {
