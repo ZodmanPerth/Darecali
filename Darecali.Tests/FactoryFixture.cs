@@ -93,23 +93,45 @@ namespace Darecali.Tests
         [Test]
         public void WeeklyTwoParamTest()
         {
-            #region Expected Results
-
-            List<DateTime> expectedResults = new List<DateTime>()
-            {
-                new DateTime(2016, 03, 07),
-                new DateTime(2016, 03, 21),
-                new DateTime(2016, 04, 04),
-            };
-
-            #endregion;
-
             DateTime startDate = new DateTime(2016, 03, 07);  //Monday
             var sut = Factory.CreateController(startDate, "W2,2")
-                .Take(expectedResults.Count).ToList();
+                .Take(3).ToList();
+            sut[0].ShouldBe(new DateTime(2016, 03, 07));
+            sut[1].ShouldBe(new DateTime(2016, 03, 21));
+            sut[2].ShouldBe(new DateTime(2016, 04, 04));
+        }
 
-            for (int i = 0; i < expectedResults.Count; i++)
-                sut[i].ShouldBe(expectedResults[i], string.Format("at {0}, should be {1}", i, expectedResults[i].ToString("D")));
+        [Test]
+        public void MonthlyNoParamTest()
+        {
+            var startDate = new DateTime(2016, 03, 08);
+            var sut = Factory.CreateController(startDate, "M")
+                .Take(3).ToList();
+            sut[0].ShouldBe(new DateTime(2016, 04, 01));
+            sut[1].ShouldBe(new DateTime(2016, 05, 01));
+            sut[2].ShouldBe(new DateTime(2016, 06, 01));
+        }
+
+        [Test]
+        public void MonthlyOneParamTest()
+        {
+            var startDate = new DateTime(2016, 03, 08);
+            var sut = Factory.CreateController(startDate, "M2")
+                .Take(3).ToList();
+            sut[0].ShouldBe(new DateTime(2016, 04, 02));
+            sut[1].ShouldBe(new DateTime(2016, 05, 02));
+            sut[2].ShouldBe(new DateTime(2016, 06, 02));
+        }
+
+        [Test]
+        public void MonthlyTwoParamTest()
+        {
+            var startDate = new DateTime(2016, 03, 08);
+            var sut = Factory.CreateController(startDate, "M2,2")
+                .Take(3).ToList();
+            sut[0].ShouldBe(new DateTime(2016, 04, 02));
+            sut[1].ShouldBe(new DateTime(2016, 06, 02));
+            sut[2].ShouldBe(new DateTime(2016, 08, 02));
         }
 
         [Test]
@@ -118,9 +140,9 @@ namespace Darecali.Tests
             var startDate = new DateTime(2016, 03, 03);
             var sut = Factory.CreateController(startDate, "Y")
                 .Take(3).ToList();
-            sut[0].ShouldBe(new DateTime(2017, 01, 01), "should be January 1, 2017");
-            sut[1].ShouldBe(new DateTime(2018, 01, 01), "should be January 1, 2018");
-            sut[2].ShouldBe(new DateTime(2019, 01, 01), "should be January 1, 2019");
+            sut[0].ShouldBe(new DateTime(2017, 01, 01));
+            sut[1].ShouldBe(new DateTime(2018, 01, 01));
+            sut[2].ShouldBe(new DateTime(2019, 01, 01));
         }
 
         [Test]
@@ -129,9 +151,9 @@ namespace Darecali.Tests
             var startDate = new DateTime(2016, 03, 03);
             var sut = Factory.CreateController(startDate, "Y11")
                 .Take(3).ToList();
-            sut[0].ShouldBe(new DateTime(2016, 11, 01), "should be November 1, 2016");
-            sut[1].ShouldBe(new DateTime(2017, 11, 01), "should be November 1, 2017");
-            sut[2].ShouldBe(new DateTime(2018, 11, 01), "should be November 1, 2018");
+            sut[0].ShouldBe(new DateTime(2016, 11, 01));
+            sut[1].ShouldBe(new DateTime(2017, 11, 01));
+            sut[2].ShouldBe(new DateTime(2018, 11, 01));
         }
 
         [Test]
@@ -140,9 +162,9 @@ namespace Darecali.Tests
             var startDate = new DateTime(2016, 03, 03);
             var sut = Factory.CreateController(startDate, "Y11,11")
                 .Take(3).ToList();
-            sut[0].ShouldBe(new DateTime(2016, 11, 11), "should be November 11, 2016");
-            sut[1].ShouldBe(new DateTime(2017, 11, 11), "should be November 11, 2017");
-            sut[2].ShouldBe(new DateTime(2018, 11, 11), "should be November 11, 2018");
+            sut[0].ShouldBe(new DateTime(2016, 11, 11));
+            sut[1].ShouldBe(new DateTime(2017, 11, 11));
+            sut[2].ShouldBe(new DateTime(2018, 11, 11));
         }
 
         [Test]
@@ -151,9 +173,20 @@ namespace Darecali.Tests
             var startDate = new DateTime(2016, 03, 03);
             var sut = Factory.CreateController(startDate, "Y11,11,3")
                 .Take(3).ToList();
-            sut[0].ShouldBe(new DateTime(2016, 11, 11), "should be November 11, 2016");
-            sut[1].ShouldBe(new DateTime(2019, 11, 11), "should be November 11, 2019");
-            sut[2].ShouldBe(new DateTime(2022, 11, 11), "should be November 11, 2022");
+            sut[0].ShouldBe(new DateTime(2016, 11, 11));
+            sut[1].ShouldBe(new DateTime(2019, 11, 11));
+            sut[2].ShouldBe(new DateTime(2022, 11, 11));
+        }
+
+        [Test]
+        public void Yearly_FourParamTest()
+        {
+            var startDate = new DateTime(2016, 03, 08);
+            var sut = Factory.CreateController(startDate, "Y2,2,2,2")
+                .Take(3).ToList();
+            sut[0].ShouldBe(new DateTime(2018, 02, 12));
+            sut[1].ShouldBe(new DateTime(2020, 02, 10));
+            sut[2].ShouldBe(new DateTime(2022, 02, 14));
         }
 
         #endregion
