@@ -39,39 +39,39 @@ Call `Factory.GetStrategyDefinitionUsage()` to get the usage message, containing
 
 ```
 Usage:
-D[n]                       - Daily  : every n day(s)
-                                      where n is an integer (default is 1)
-Dwd                        - Daily  : every weekday
-Dwe                        - Daily  : every weekend day
-W[n]                       - Weekly : every day, every n week(s)
-                                      where n is an integer (default is 1)
-W[1-127[,n]]               - Weekly : every n week(s) on specified day(s)
-                                      where specified day(s) are bitwise flags (Sunday = 1)
-                                            n is an integer (default is 1)
-M[1-31[,n]]                - Monthly: on dayOfMonth every n month(s)
-                                      where dayOfMonth is an integer 1-31 (default is 1)
-                                            n is a positive integer (default is 1)
-M1-4|L,1-7|d|wd|we,n:      - Monthly: the frequency specialDay of every n month(s)
-                                      where frequency  is 1-4 for First-Fourth
-                                                       or 'L' for Last
-                                            specialDay is 1-7 for Sunday-Monday
-                                                       or 'd' for day
-                                                       or 'wd' for weekday
-                                                       or 'we' for weekend day
-                                            n is a positive integer
-Y[1-12[,1-31[,n]]]         - Yearly : every n year(s) on the specified month and day
-                                      where month is 1-12 (default is 1)
-                                      where day is 1-31 (default is 1)
-                                      where n is a positive integer (default is 1)
-Y1-4|L,1-7|d|wd|we,1-12,n: - Yearly : the frequency specialDay of monthIndex, every n year(s)
-                                      where frequency  is 1-4 for First-Fourth
-                                                       or 'L' for Last
-                                            specialDay is 1-7 for Sunday-Monday
-                                                       or 'd' for day
-                                                       or 'wd' for weekday
-                                                       or 'we' for weekend day
-                                            monthIndex is 1-12 for January-December
-                                            n is a positive integer
+D[n]                     - Daily  : every n day(s)
+                                    where n is an integer (default is 1)
+Dwd                      - Daily  : every weekday
+Dwe                      - Daily  : every weekend day
+W[n]                     - Weekly : every day, every n week(s)
+                                    where n is an integer (default is 1)
+W[days[,n]]              - Weekly : every n week(s) on specified day(s)
+                                    where days are bitwise flags 1-127 (Sunday = 1)
+                                          n is an integer (default is 1)
+M[day[,n]]               - Monthly: every n month(s) on specified day
+                                    where day is an integer 1-31 (default is 1)
+                                          n is a positive integer (default is 1)
+Mfrequency,day,n         - Monthly: every frequency day of every n month(s)
+                                    where frequency is 1-4 for First-Fourth
+                                                    or 'L' for Last
+                                          day is 1-7 for Sunday-Monday
+                                              or 'd' for day
+                                              or 'wd' for weekday
+                                              or 'we' for weekend day
+                                          n is a positive integer
+Y[month[,day[,n]]]       - Yearly : every n year(s) on the specified day and month
+                                    where month is 1-12 (default is 1)
+                                          day is 1-31 (default is 1)
+                                          n is a positive integer (default is 1)
+Yfrequency,day,month,n   - Yearly : the frequency day of specified month, every n year(s)
+                                    where frequency is 1-4 for First-Fourth
+                                                    or 'L' for Last
+                                          day is 1-7 for Sunday-Monday
+                                              or 'd' for day
+                                              or 'wd' for weekday
+                                              or 'we' for weekend day
+                                          month is 1-12 for January-December
+                                          n is a positive integer
 ```
 
 >NOTE: The usage message will also be part of an `InvalidStrategyDefinitionException` if the provided strategy definition is invalid.
