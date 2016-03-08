@@ -222,7 +222,7 @@ namespace Darecali
             sb.AppendLine("Dwe                      - Daily  : every weekend day");
             sb.AppendLine("W[n]                     - Weekly : every day, every n week(s)");
             sb.AppendLine("                                    where n is an integer (default is 1)");
-            sb.AppendLine("W[days[,n]]              - Weekly : every n week(s) on specified day(s)");
+            sb.AppendLine("Wdays,n                  - Weekly : every n week(s) on specified day(s)");
             sb.AppendLine("                                    where days are bitwise flags 1-127 (Sunday = 1)");
             sb.AppendLine("                                          n is an integer (default is 1)");
             sb.AppendLine("M[day[,n]]               - Monthly: every n month(s) on specified day");

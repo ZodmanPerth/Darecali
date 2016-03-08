@@ -16,19 +16,19 @@ namespace Darecali.Tests.Strategy
         const int weekendDayFlags = (int)DayOfWeekFlags.WeekendDays;
         const int ThursdayFridaySaturdayFlags = (int)(DayOfWeekFlags.Thursday | DayOfWeekFlags.Friday | DayOfWeekFlags.Saturday);
 
-        #region Defaulted Every Day Tests
+        #region Nth Week Tests
 
         [Test]
-        public void DefaultedEveryDayEveryWeekTest()
+        public void Every1WeekTest()
         {
-            var sut = Factory.CreateController(DateTime.Today, "W")
+            var sut = Factory.CreateController(DateTime.Today, "W1")
                 .Take(21).ToList();
             for (int i = 0; i < 21; i++)
                 sut[i].ShouldBe(DateTime.Today.AddDays(i), "should be today + " + i);
         }
 
         [Test]
-        public void DefaultedEveryDayEverySecondWeekTest()
+        public void EveryTwoWeeksTest()
         {
             DateTime startDate = new DateTime(2016, 02, 22);
             var sut = Factory.CreateController(startDate, "W2")
@@ -42,7 +42,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void DefaultedEveryDayEveryThirdWeekTest()
+        public void EveryThreeWeeksTest()
         {
             DateTime startDate = new DateTime(2016, 02, 22);
             var sut = Factory.CreateController(startDate, "W3")
@@ -57,7 +57,7 @@ namespace Darecali.Tests.Strategy
 
         #endregion
 
-        #region Every WeekDay Tests
+        #region Weekday Tests
 
         [Test]
         public void EveryWeekDayEveryWeekTest()
@@ -96,7 +96,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryWeekDayEverySecondWeekTest()
+        public void EveryWeekDayEveryTwoWeeksTest()
         {
             #region Expected Results
 
@@ -132,7 +132,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryWeekDayEveryThirdWeekTest()
+        public void EveryWeekDayEveryThreeWeeksTest()
         {
             #region Expected Results
 
@@ -161,6 +161,73 @@ namespace Darecali.Tests.Strategy
 
             DateTime startDate = new DateTime(2016, 02, 22);  //Monday
             var sut = Factory.CreateController(startDate, "W" + weekDayFlags + ",3")
+                .Take(expectedResults.Count).ToList();
+
+            for (int i = 0; i < expectedResults.Count; i++)
+                sut[i].ShouldBe(expectedResults[i], string.Format("at {0}, should be {1}", i, expectedResults[i].ToString("D")));
+        }
+
+        #endregion
+
+        #region Weekend Day Tests
+
+        [Test]
+        public void EveryWeekendDayEveryWeekTest()
+        {
+            #region Expected Results
+
+            List<DateTime> expectedResults = new List<DateTime>()
+            {
+                new DateTime(2016, 02, 27),
+                new DateTime(2016, 02, 28),
+
+                new DateTime(2016, 03, 05),
+                new DateTime(2016, 03, 06),
+
+                new DateTime(2016, 03, 12),
+                new DateTime(2016, 03, 13),
+            };
+
+            #endregion;
+
+            DateTime startDate = new DateTime(2016, 02, 22);  //Monday
+            var sut = Factory.CreateController(startDate, "W" + weekendDayFlags + ",1")
+                .Take(expectedResults.Count).ToList();
+
+            for (int i = 0; i < expectedResults.Count; i++)
+                sut[i].ShouldBe(expectedResults[i], string.Format("at {0}, should be {1}", i, expectedResults[i].ToString("D")));
+        }
+
+        [Test]
+        public void EveryDayEveryTwoWeeksTest()
+        {
+            #region Expected Results
+
+            List<DateTime> expectedResults = new List<DateTime>()
+            {
+                new DateTime(2016, 02, 22),
+                new DateTime(2016, 02, 23),
+                new DateTime(2016, 02, 24),
+                new DateTime(2016, 02, 25),
+                new DateTime(2016, 02, 26),
+
+                new DateTime(2016, 03, 07),
+                new DateTime(2016, 03, 08),
+                new DateTime(2016, 03, 09),
+                new DateTime(2016, 03, 10),
+                new DateTime(2016, 03, 11),
+
+                new DateTime(2016, 03, 21),
+                new DateTime(2016, 03, 22),
+                new DateTime(2016, 03, 23),
+                new DateTime(2016, 03, 24),
+                new DateTime(2016, 03, 25),
+            };
+
+            #endregion;
+
+            DateTime startDate = new DateTime(2016, 02, 22);  //Monday
+            var sut = Factory.CreateController(startDate, "W" + weekDayFlags + ",2")
                 .Take(expectedResults.Count).ToList();
 
             for (int i = 0; i < expectedResults.Count; i++)
@@ -232,70 +299,5 @@ namespace Darecali.Tests.Strategy
         }
 
         #endregion
-
-        [Test]
-        public void EveryWeekendDayEveryWeekTest()
-        {
-            #region Expected Results
-
-            List<DateTime> expectedResults = new List<DateTime>()
-            {
-                new DateTime(2016, 02, 27),
-                new DateTime(2016, 02, 28),
-
-                new DateTime(2016, 03, 05),
-                new DateTime(2016, 03, 06),
-
-                new DateTime(2016, 03, 12),
-                new DateTime(2016, 03, 13),
-            };
-
-            #endregion;
-
-            DateTime startDate = new DateTime(2016, 02, 22);  //Monday
-            var sut = Factory.CreateController(startDate, "W" + weekendDayFlags + ",1")
-                .Take(expectedResults.Count).ToList();
-
-            for (int i = 0; i < expectedResults.Count; i++)
-                sut[i].ShouldBe(expectedResults[i], string.Format("at {0}, should be {1}", i, expectedResults[i].ToString("D")));
-        }
-
-        [Test]
-        public void EveryDayEverySecondWeekTest()
-        {
-            #region Expected Results
-
-            List<DateTime> expectedResults = new List<DateTime>()
-            {
-                new DateTime(2016, 02, 22),
-                new DateTime(2016, 02, 23),
-                new DateTime(2016, 02, 24),
-                new DateTime(2016, 02, 25),
-                new DateTime(2016, 02, 26),
-
-                new DateTime(2016, 03, 07),
-                new DateTime(2016, 03, 08),
-                new DateTime(2016, 03, 09),
-                new DateTime(2016, 03, 10),
-                new DateTime(2016, 03, 11),
-
-                new DateTime(2016, 03, 21),
-                new DateTime(2016, 03, 22),
-                new DateTime(2016, 03, 23),
-                new DateTime(2016, 03, 24),
-                new DateTime(2016, 03, 25),
-            };
-
-            #endregion;
-
-            DateTime startDate = new DateTime(2016, 02, 22);  //Monday
-            var sut = Factory.CreateController(startDate, "W" + weekDayFlags + ",2")
-                .Take(expectedResults.Count).ToList();
-
-            for (int i = 0; i < expectedResults.Count; i++)
-                sut[i].ShouldBe(expectedResults[i], string.Format("at {0}, should be {1}", i, expectedResults[i].ToString("D")));
-        }
-
-
     }
 }

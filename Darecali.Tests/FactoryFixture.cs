@@ -34,12 +34,19 @@ namespace Darecali.Tests
 
         #endregion
 
-        #region Every Nth Day tests
+        [Test]
+        public void Daily_TooManyParamsTest()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("D5,2");
+            });
+        }
 
-        #region Optional Parameter tests
+        #region Valid strategy definition parameter tests
 
         [Test]
-        public void NthDay_NoParamTest()
+        public void Daily_NoParamTest()
         {
             var startDate = new DateTime(2016, 03, 08);
             var sut = Factory.CreateController(startDate, "D")
@@ -50,7 +57,7 @@ namespace Darecali.Tests
         }
 
         [Test]
-        public void NthDay_OneParamTest()
+        public void Daily_OneParamTest()
         {
             var startDate = new DateTime(2016, 03, 08);
             var sut = Factory.CreateController(startDate, "D2")
@@ -61,24 +68,52 @@ namespace Darecali.Tests
         }
 
         [Test]
-        public void NthDay_TooManyParamsTest()
+        public void Weekly_NoParamTest()
         {
-            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
-            {
-                var sut = Factory.CreateStrategy("D5,2");
-            });
+            var sut = Factory.CreateController(DateTime.Today, "W")
+                .Take(21).ToList();
+            for (int i = 0; i < 21; i++)
+                sut[i].ShouldBe(DateTime.Today.AddDays(i), "should be today + " + i);
         }
 
-        #endregion
-
-        #endregion
-
-        #region Every Nth Year tests
-
-        #region Optional Parameter tests
+        [Test]
+        public void Weekly_OneParamTest()
+        {
+            DateTime startDate = new DateTime(2016, 02, 22);
+            var sut = Factory.CreateController(startDate, "W2")
+                .Take(21).ToList();
+            for (int i = 0; i < 7; i++)
+                sut[i].ShouldBe(startDate.AddDays(i), "should be startDate + " + i);
+            for (int i = 0; i < 7; i++)
+                sut[7 + i].ShouldBe(startDate.AddDays(14 + i), "should be startDate + 2 weeks + " + i);
+            for (int i = 0; i < 7; i++)
+                sut[14 + i].ShouldBe(startDate.AddDays(28 + i), "should be startDate + 4 weeks + " + i);
+        }
 
         [Test]
-        public void NthYear_NoParamTest()
+        public void WeeklyTwoParamTest()
+        {
+            #region Expected Results
+
+            List<DateTime> expectedResults = new List<DateTime>()
+            {
+                new DateTime(2016, 03, 07),
+                new DateTime(2016, 03, 21),
+                new DateTime(2016, 04, 04),
+            };
+
+            #endregion;
+
+            DateTime startDate = new DateTime(2016, 03, 07);  //Monday
+            var sut = Factory.CreateController(startDate, "W2,2")
+                .Take(expectedResults.Count).ToList();
+
+            for (int i = 0; i < expectedResults.Count; i++)
+                sut[i].ShouldBe(expectedResults[i], string.Format("at {0}, should be {1}", i, expectedResults[i].ToString("D")));
+        }
+
+        [Test]
+        public void Yearly_NoParamTest()
         {
             var startDate = new DateTime(2016, 03, 03);
             var sut = Factory.CreateController(startDate, "Y")
@@ -89,7 +124,7 @@ namespace Darecali.Tests
         }
 
         [Test]
-        public void NthYear_OneParamTest()
+        public void Yearly_OneParamTest()
         {
             var startDate = new DateTime(2016, 03, 03);
             var sut = Factory.CreateController(startDate, "Y11")
@@ -100,7 +135,7 @@ namespace Darecali.Tests
         }
 
         [Test]
-        public void NthYear_TwoParamTest()
+        public void Yearly_TwoParamTest()
         {
             var startDate = new DateTime(2016, 03, 03);
             var sut = Factory.CreateController(startDate, "Y11,11")
@@ -111,7 +146,7 @@ namespace Darecali.Tests
         }
 
         [Test]
-        public void NthYear_ThreeParamTest()
+        public void Yearly_ThreeParamTest()
         {
             var startDate = new DateTime(2016, 03, 03);
             var sut = Factory.CreateController(startDate, "Y11,11,3")
@@ -120,8 +155,6 @@ namespace Darecali.Tests
             sut[1].ShouldBe(new DateTime(2019, 11, 11), "should be November 11, 2019");
             sut[2].ShouldBe(new DateTime(2022, 11, 11), "should be November 11, 2022");
         }
-
-        #endregion
 
         #endregion
 
