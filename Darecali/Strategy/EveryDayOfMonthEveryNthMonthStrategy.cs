@@ -10,18 +10,18 @@ namespace Darecali.Strategy
     public class EveryDayOfMonthEveryNthMonthStrategy : IRecurrenceStrategy
     {
         DateTime _currentDate;
-        int _dayOfMonth;
+        int _day;
         int _n;
         bool _hasMovedNext;
 
-        public EveryDayOfMonthEveryNthMonthStrategy(int dayOfMonth = 1, int n = 1)
+        public EveryDayOfMonthEveryNthMonthStrategy(int day = 1, int n = 1)
         {
-            if (dayOfMonth < 1 || dayOfMonth > 31)
-                throw new ArgumentOutOfRangeException("dayOfMonth is outside of the valid range");
+            if (day < 1 || day > 31)
+                throw new ArgumentOutOfRangeException("day is outside of the valid range");
             if (n< 1 )
                 throw new ArgumentOutOfRangeException("n must be a positive integer");
 
-            _dayOfMonth = dayOfMonth;
+            _day = day;
             _n = n;
         }
 
@@ -39,7 +39,7 @@ namespace Darecali.Strategy
                 _currentDate = new DateTime(_currentDate.Year, _currentDate.Month, 1)
                     .AddMonths(_n);
 
-            while (_currentDate.Day != _dayOfMonth)
+            while (_currentDate.Day != _day)
                 _currentDate = _currentDate.AddDays(1);
             return _currentDate;
         }

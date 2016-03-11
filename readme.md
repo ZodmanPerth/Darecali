@@ -47,7 +47,7 @@ W[n]                     - Weekly : every day, every n week(s)
                                     where n is an integer (default is 1)
 Wdays,n                  - Weekly : every n week(s) on specified day(s)
                                     where days are bitwise flags 1-127 (Sunday = 1)
-                                          n is an integer (default is 1)
+                                          n is an integer
 M[day[,n]]               - Monthly: every n month(s) on specified day
                                     where day is an integer 1-31 (default is 1)
                                           n is a positive integer (default is 1)

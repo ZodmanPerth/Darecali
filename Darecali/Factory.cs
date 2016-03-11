@@ -26,39 +26,38 @@ namespace Darecali
                 throw new InvalidStrategyDefinitionException();
 
             strategyDefinition = strategyDefinition.Trim();
-            int n;
-            int freq;
+            var args = strategyDefinition
+                .Substring(1)
+                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            int n = 1;
+            int day = 1;
+            int month = 1;
+            int dayFlags = (int)DayOfWeekFlags.EveryDay;
             Frequency frequency;
-            int spec;
             SpecialDay specialDay;
 
             switch (strategyDefinition[0])
             {
                 case 'D':
-                    n = 1;
-                    if (strategyDefinition.Length > 1)
+                    if (args.Any())
                     {
-                        var remainder = strategyDefinition.Substring(1);
+                        if (args.Length > 1)
+                            throw new InvalidStrategyDefinitionException();
 
-                        if (remainder == "wd")
+                        if (args[0] == "wd")
                             return new EveryNthWeekOnSpecificDaysStrategy(DayOfWeekFlags.WeekDays);
-
-                        if (remainder == "we")
+                        else if (args[0] == "we")
                             return new EveryNthWeekOnSpecificDaysStrategy(DayOfWeekFlags.WeekendDays);
 
-                        if (!int.TryParse(remainder, out n))
+                        if (!int.TryParse(args[0], out n))
                             throw new InvalidStrategyDefinitionException();
                     }
                     return new EveryNthDayStrategy(n);
 
                 case 'W':
-                    int dayFlags = (int)DayOfWeekFlags.EveryDay;
-                    n = 1;
-                    if (strategyDefinition.Length > 1)
+                    if (args.Any())
                     {
-                        var remainder = strategyDefinition.Substring(1);
-                        var args = remainder.Split(',');
-
                         if (args.Length < 1 || args.Length > 2)
                             throw new InvalidStrategyDefinitionException();
 
@@ -80,18 +79,13 @@ namespace Darecali
                     return new EveryNthWeekOnSpecificDaysStrategy((DayOfWeekFlags)dayFlags, n);
 
                 case 'M':
-                    int dayOfMonth = 1;
-                    n = 1;
-                    if (strategyDefinition.Length > 1)
+                    if (args.Any())
                     {
-                        var remainder = strategyDefinition.Substring(1);
-                        var args = remainder.Split(',');
-
                         if (args.Length < 1 || args.Length > 3)
                             throw new InvalidStrategyDefinitionException();
 
                         if (args.Length < 3)
-                            if (!int.TryParse(args[0], out dayOfMonth))
+                            if (!int.TryParse(args[0], out day))
                                 throw new InvalidStrategyDefinitionException();
 
                         if (args.Length == 2)
@@ -103,31 +97,8 @@ namespace Darecali
                             if (args[0].Length != 1)
                                 throw new InvalidStrategyDefinitionException();
 
-                            if (int.TryParse(args[0], out freq))
-                            {
-                                if (freq < 1 || freq > 4)
-                                    throw new InvalidStrategyDefinitionException();
-                                frequency = (Frequency)freq;
-                            }
-                            else if (args[0] == "L")
-                                frequency = Frequency.Last;
-                            else
-                                throw new InvalidStrategyDefinitionException();
-
-                            if (int.TryParse(args[1], out spec))
-                            {
-                                if (spec < 1 || spec > 7)
-                                    throw new InvalidStrategyDefinitionException();
-                                specialDay = (SpecialDay)(spec - 1);
-                            }
-                            else if (args[1] == "d")
-                                specialDay = SpecialDay.Day;
-                            else if (args[1] == "wd")
-                                specialDay = SpecialDay.WeekDay;
-                            else if (args[1] == "we")
-                                specialDay = SpecialDay.WeekendDay;
-                            else
-                                throw new InvalidStrategyDefinitionException();
+                            frequency = ParseFrequencyOrThrow(args[0]);
+                            specialDay = ParseSpecialDayOrThrow(args[1]);
 
                             if (!int.TryParse(args[2], out n))
                                 throw new InvalidStrategyDefinitionException();
@@ -136,17 +107,11 @@ namespace Darecali
                         }
                     }
 
-                    return new EveryDayOfMonthEveryNthMonthStrategy(dayOfMonth, n);
+                    return new EveryDayOfMonthEveryNthMonthStrategy(day, n);
 
                 case 'Y':
-                    int day = 1;
-                    int month = 1;
-                    n = 1;
-                    if (strategyDefinition.Length > 1)
+                    if (args.Any())
                     {
-                        var remainder = strategyDefinition.Substring(1);
-                        var args = remainder.Split(',');
-
                         if (args.Length > 4)
                             throw new InvalidStrategyDefinitionException();
 
@@ -168,31 +133,8 @@ namespace Darecali
                             if (args[0].Length != 1)
                                 throw new InvalidStrategyDefinitionException();
 
-                            if (int.TryParse(args[0], out freq))
-                            {
-                                if (freq < 1 || freq > 4)
-                                    throw new InvalidStrategyDefinitionException();
-                                frequency = (Frequency)freq;
-                            }
-                            else if (args[0] == "L")
-                                frequency = Frequency.Last;
-                            else
-                                throw new InvalidStrategyDefinitionException();
-
-                            if (int.TryParse(args[1], out spec))
-                            {
-                                if (spec < 1 || spec > 7)
-                                    throw new InvalidStrategyDefinitionException();
-                                specialDay = (SpecialDay)(spec - 1);
-                            }
-                            else if (args[1] == "d")
-                                specialDay = SpecialDay.Day;
-                            else if (args[1] == "wd")
-                                specialDay = SpecialDay.WeekDay;
-                            else if (args[1] == "we")
-                                specialDay = SpecialDay.WeekendDay;
-                            else
-                                throw new InvalidStrategyDefinitionException();
+                            frequency = ParseFrequencyOrThrow(args[0]);
+                            specialDay = ParseSpecialDayOrThrow(args[1]);
 
                             if (!int.TryParse(args[2], out month))
                                 throw new InvalidStrategyDefinitionException();
@@ -209,7 +151,42 @@ namespace Darecali
 
                     return new EveryNthYearOnSpecificMonthAndDayStrategy(month, day, n);
             }
+
             throw new InvalidStrategyDefinitionException();
+        }
+
+        static Frequency ParseFrequencyOrThrow(string arg)
+        {
+            int freq;
+            if (int.TryParse(arg, out freq))
+            {
+                if (freq < 1 || freq > 4)
+                    throw new InvalidStrategyDefinitionException();
+                return (Frequency)freq;
+            }
+            else if (arg == "L")
+                return Frequency.Last;
+            else
+                throw new InvalidStrategyDefinitionException();
+        }
+
+        static SpecialDay ParseSpecialDayOrThrow(string arg)
+        {
+            int spec;
+            if (int.TryParse(arg, out spec))
+            {
+                if (spec < 1 || spec > 7)
+                    throw new InvalidStrategyDefinitionException();
+                return (SpecialDay)(spec - 1);
+            }
+            else if (arg == "d")
+                return SpecialDay.Day;
+            else if (arg == "wd")
+                return SpecialDay.WeekDay;
+            else if (arg == "we")
+                return SpecialDay.WeekendDay;
+            else
+                throw new InvalidStrategyDefinitionException();
         }
 
         public static string GetStrategyDefinitionUsage()
@@ -224,7 +201,7 @@ namespace Darecali
             sb.AppendLine("                                    where n is an integer (default is 1)");
             sb.AppendLine("Wdays,n                  - Weekly : every n week(s) on specified day(s)");
             sb.AppendLine("                                    where days are bitwise flags 1-127 (Sunday = 1)");
-            sb.AppendLine("                                          n is an integer (default is 1)");
+            sb.AppendLine("                                          n is an integer");
             sb.AppendLine("M[day[,n]]               - Monthly: every n month(s) on specified day");
             sb.AppendLine("                                    where day is an integer 1-31 (default is 1)");
             sb.AppendLine("                                          n is a positive integer (default is 1)");
