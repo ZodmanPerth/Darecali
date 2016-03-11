@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Darecali.Strategy
 {
-    public class EveryNthYearOnSpecificMonthAndDayStrategy : IRecurrenceStrategy
+    public class EveryNthYearOnSpecifiedDayAndMonthStrategy : IRecurrenceStrategy
     {
         DateTime _currentDate;
         int _n;
@@ -16,7 +16,7 @@ namespace Darecali.Strategy
         bool _hasMovedNext;
         bool _isFebruary29th;
 
-        public EveryNthYearOnSpecificMonthAndDayStrategy(int month = 1, int day = 1, int n = 1)
+        public EveryNthYearOnSpecifiedDayAndMonthStrategy(int month = 1, int day = 1, int n = 1)
         {
             if (month < 1 || month > 12) throw new ArgumentOutOfRangeException("month");
             if (day < 1 || day > 31) throw new ArgumentOutOfRangeException("day");

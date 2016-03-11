@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Darecali.Tests.Strategy
 {
     [Category("Strategy")]
-    public class EveryNthWeekOnSpecificDaysStrategyFixture
+    public class EveryNthWeekOnSpecifiedDaysStrategyFixture
     {
         const int weekDayFlags = (int)DayOfWeekFlags.WeekDays;
         const int weekendDayFlags = (int)DayOfWeekFlags.WeekendDays;

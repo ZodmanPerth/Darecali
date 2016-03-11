@@ -46,9 +46,9 @@ namespace Darecali
                             throw new InvalidStrategyDefinitionException();
 
                         if (args[0] == "wd")
-                            return new EveryNthWeekOnSpecificDaysStrategy(DayOfWeekFlags.WeekDays);
+                            return new EveryNthWeekOnSpecifiedDaysStrategy(DayOfWeekFlags.WeekDays);
                         else if (args[0] == "we")
-                            return new EveryNthWeekOnSpecificDaysStrategy(DayOfWeekFlags.WeekendDays);
+                            return new EveryNthWeekOnSpecifiedDaysStrategy(DayOfWeekFlags.WeekendDays);
 
                         if (!int.TryParse(args[0], out n))
                             throw new InvalidStrategyDefinitionException();
@@ -76,7 +76,7 @@ namespace Darecali
                                 throw new InvalidStrategyDefinitionException();
                     }
 
-                    return new EveryNthWeekOnSpecificDaysStrategy((DayOfWeekFlags)dayFlags, n);
+                    return new EveryNthWeekOnSpecifiedDaysStrategy((DayOfWeekFlags)dayFlags, n);
 
                 case 'M':
                     if (args.Any())
@@ -116,11 +116,11 @@ namespace Darecali
                             )
                                 throw new InvalidStrategyDefinitionException();
 
-                            return new EveryFrequencySpecialDayOfEveryNthMonthStrategy(frequency, specialDay, n);
+                            return new EveryNthMonthOnFrequencySpecialDayStrategy(frequency, specialDay, n);
                         }
                     }
 
-                    return new EveryDayOfMonthEveryNthMonthStrategy(day, n);
+                    return new EveryNthMonthOnSpecifiedDayStrategy(day, n);
 
                 case 'Y':
                     if (args.Any())
@@ -158,11 +158,11 @@ namespace Darecali
                             if (!int.TryParse(args[3], out n))
                                 throw new InvalidStrategyDefinitionException();
 
-                            return new EveryFrequencySpecialDayOfMonthEveryNthYearStrategy(frequency, specialDay, month, n);
+                            return new EveryNthYearOnFrequencySpecialDayOfMonthStrategy(frequency, specialDay, month, n);
                         }
                     }
 
-                    return new EveryNthYearOnSpecificMonthAndDayStrategy(month, day, n);
+                    return new EveryNthYearOnSpecifiedDayAndMonthStrategy(month, day, n);
             }
 
             throw new InvalidStrategyDefinitionException();

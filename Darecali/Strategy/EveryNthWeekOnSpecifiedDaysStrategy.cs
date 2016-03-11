@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Darecali.Strategy
 {
-    public class EveryNthWeekOnSpecificDaysStrategy : IRecurrenceStrategy
+    public class EveryNthWeekOnSpecifiedDaysStrategy : IRecurrenceStrategy
     {
         DateTime _currentDate;
         int _n;
@@ -15,7 +15,7 @@ namespace Darecali.Strategy
         List<DayOfWeek> _daysOfWeek;
         DayOfWeek _startDay;
 
-        public EveryNthWeekOnSpecificDaysStrategy(DayOfWeekFlags daysOfWeek, int n = 1)
+        public EveryNthWeekOnSpecifiedDaysStrategy(DayOfWeekFlags daysOfWeek, int n = 1)
         {
             _n = n;
             _daysOfWeek = GetDaysOfWeek(daysOfWeek).ToList();

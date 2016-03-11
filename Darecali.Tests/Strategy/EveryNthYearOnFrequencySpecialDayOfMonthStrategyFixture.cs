@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Darecali.Tests.Strategy
 {
     [Category("Strategy")]
-    public class EveryFrequencySpecialDayOfMonthEveryNthYearStrategyFixture
+    public class EveryNthYearOnFrequencySpecialDayOfMonthStrategyFixture
     {
         #region Exception tests
 
@@ -19,7 +19,7 @@ namespace Darecali.Tests.Strategy
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentException>(() =>
             {
-                var sut = new EveryFrequencySpecialDayOfMonthEveryNthYearStrategy(0);
+                var sut = new EveryNthYearOnFrequencySpecialDayOfMonthStrategy(0);
             });
         }
 
@@ -28,7 +28,7 @@ namespace Darecali.Tests.Strategy
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentException>(() =>
             {
-                var sut = new EveryFrequencySpecialDayOfMonthEveryNthYearStrategy((Frequency)10);
+                var sut = new EveryNthYearOnFrequencySpecialDayOfMonthStrategy((Frequency)10);
             });
         }
 
@@ -37,7 +37,7 @@ namespace Darecali.Tests.Strategy
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentException>(() =>
             {
-                var sut = new EveryFrequencySpecialDayOfMonthEveryNthYearStrategy(specialDay: (SpecialDay)(-1));
+                var sut = new EveryNthYearOnFrequencySpecialDayOfMonthStrategy(specialDay: (SpecialDay)(-1));
             });
         }
 
@@ -46,7 +46,7 @@ namespace Darecali.Tests.Strategy
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentException>(() =>
             {
-                var sut = new EveryFrequencySpecialDayOfMonthEveryNthYearStrategy(specialDay: (SpecialDay)10);
+                var sut = new EveryNthYearOnFrequencySpecialDayOfMonthStrategy(specialDay: (SpecialDay)10);
             });
         }
 
@@ -55,7 +55,7 @@ namespace Darecali.Tests.Strategy
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentOutOfRangeException>(() =>
             {
-                var sut = new EveryFrequencySpecialDayOfMonthEveryNthYearStrategy(month: 0);
+                var sut = new EveryNthYearOnFrequencySpecialDayOfMonthStrategy(month: 0);
             });
         }
 
@@ -64,7 +64,7 @@ namespace Darecali.Tests.Strategy
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentOutOfRangeException>(() =>
             {
-                var sut = new EveryFrequencySpecialDayOfMonthEveryNthYearStrategy(month: 13);
+                var sut = new EveryNthYearOnFrequencySpecialDayOfMonthStrategy(month: 13);
             });
         }
 
@@ -73,7 +73,7 @@ namespace Darecali.Tests.Strategy
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentOutOfRangeException>(() =>
             {
-                var sut = new EveryFrequencySpecialDayOfMonthEveryNthYearStrategy(n: 0);
+                var sut = new EveryNthYearOnFrequencySpecialDayOfMonthStrategy(n: 0);
             });
         }
 

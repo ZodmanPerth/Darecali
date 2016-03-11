@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Darecali.Tests.Strategy
 {
     [Category("Strategy")]
-    public class EveryNthYearOnSpecificMonthAndDayStrategyFixture
+    public class EveryNthYearOnSpecifiedDayAndMonthStrategyFixture
     {
         #region Exception tests
 
@@ -19,7 +19,7 @@ namespace Darecali.Tests.Strategy
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentOutOfRangeException>(() =>
             {
-                var sut = new EveryNthYearOnSpecificMonthAndDayStrategy(0);
+                var sut = new EveryNthYearOnSpecifiedDayAndMonthStrategy(0);
             });
         }
 
@@ -28,7 +28,7 @@ namespace Darecali.Tests.Strategy
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentOutOfRangeException>(() =>
             {
-                var sut = new EveryNthYearOnSpecificMonthAndDayStrategy(13);
+                var sut = new EveryNthYearOnSpecifiedDayAndMonthStrategy(13);
             });
         }
 
@@ -37,7 +37,7 @@ namespace Darecali.Tests.Strategy
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentOutOfRangeException>(() =>
             {
-                var sut = new EveryNthYearOnSpecificMonthAndDayStrategy(day: 0);
+                var sut = new EveryNthYearOnSpecifiedDayAndMonthStrategy(day: 0);
             });
         }
 
@@ -46,7 +46,7 @@ namespace Darecali.Tests.Strategy
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentOutOfRangeException>(() =>
             {
-                var sut = new EveryNthYearOnSpecificMonthAndDayStrategy(day: 32);
+                var sut = new EveryNthYearOnSpecifiedDayAndMonthStrategy(day: 32);
             });
         }
 
@@ -55,7 +55,7 @@ namespace Darecali.Tests.Strategy
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentOutOfRangeException>(() =>
             {
-                var sut = new EveryNthYearOnSpecificMonthAndDayStrategy(n: 0);
+                var sut = new EveryNthYearOnSpecifiedDayAndMonthStrategy(n: 0);
             });
         }
 
@@ -65,7 +65,7 @@ namespace Darecali.Tests.Strategy
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentOutOfRangeException>(() =>
             {
-                var sut = new EveryNthYearOnSpecificMonthAndDayStrategy(month, day);
+                var sut = new EveryNthYearOnSpecifiedDayAndMonthStrategy(month, day);
             });
         }
 
@@ -73,7 +73,7 @@ namespace Darecali.Tests.Strategy
         {
             Shouldly.ShouldThrowExtensions.ShouldNotThrow(() =>
             {
-                var sut = new EveryNthYearOnSpecificMonthAndDayStrategy(2, 29);
+                var sut = new EveryNthYearOnSpecifiedDayAndMonthStrategy(2, 29);
             });
         }
 
@@ -85,7 +85,7 @@ namespace Darecali.Tests.Strategy
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentOutOfRangeException>(() =>
             {
-                var sut = new EveryNthYearOnSpecificMonthAndDayStrategy(month, 31);
+                var sut = new EveryNthYearOnSpecifiedDayAndMonthStrategy(month, 31);
             });
         }
 

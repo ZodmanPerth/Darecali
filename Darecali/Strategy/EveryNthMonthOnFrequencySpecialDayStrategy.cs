@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Darecali.Strategy
 {
-    public class EveryFrequencySpecialDayOfEveryNthMonthStrategy : IRecurrenceStrategy
+    public class EveryNthMonthOnFrequencySpecialDayStrategy : IRecurrenceStrategy
     {
         DateTime _currentDate;
         Frequency _frequency;
         SpecialDay _specialDay;
         int _n;
 
-        public EveryFrequencySpecialDayOfEveryNthMonthStrategy(Frequency frequency = Frequency.First, SpecialDay specialDay = SpecialDay.WeekDay, int n = 1)
+        public EveryNthMonthOnFrequencySpecialDayStrategy(Frequency frequency = Frequency.First, SpecialDay specialDay = SpecialDay.WeekDay, int n = 1)
         {
             if (n < 1)
                 throw new ArgumentOutOfRangeException("n must be a positive integer");

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Darecali.Strategy
 {
-    public class EveryFrequencySpecialDayOfMonthEveryNthYearStrategy : IRecurrenceStrategy
+    public class EveryNthYearOnFrequencySpecialDayOfMonthStrategy : IRecurrenceStrategy
     {
         DateTime _currentDate;
         Frequency _frequency;
@@ -15,7 +15,7 @@ namespace Darecali.Strategy
         int _month;
         int _n;
 
-        public EveryFrequencySpecialDayOfMonthEveryNthYearStrategy(Frequency frequency = Frequency.First, SpecialDay specialDay = SpecialDay.WeekDay, int month = 1, int n = 1)
+        public EveryNthYearOnFrequencySpecialDayOfMonthStrategy(Frequency frequency = Frequency.First, SpecialDay specialDay = SpecialDay.WeekDay, int month = 1, int n = 1)
         {
             if (!Enum.IsDefined(typeof(Frequency), frequency)) throw new ArgumentException("frequency");
             if (!Enum.IsDefined(typeof(SpecialDay), specialDay)) throw new ArgumentException("specialDay");
