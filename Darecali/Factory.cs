@@ -171,35 +171,35 @@ namespace Darecali
         static Frequency ParseFrequencyOrThrow(string arg)
         {
             int freq;
-            if (int.TryParse(arg, out freq))
-            {
-                if (freq < 1 || freq > 4)
-                    throw new InvalidStrategyDefinitionException();
-                return (Frequency)freq;
-            }
-            else if (arg == "L")
+            if (arg == "L")
                 return Frequency.Last;
-            else
+            else if
+            (
+                !int.TryParse(arg, out freq)
+                || freq < 1
+                || freq > 4
+            )
                 throw new InvalidStrategyDefinitionException();
+            return (Frequency)freq;
         }
 
         static SpecialDay ParseSpecialDayOrThrow(string arg)
         {
             int spec;
-            if (int.TryParse(arg, out spec))
-            {
-                if (spec < 1 || spec > 7)
-                    throw new InvalidStrategyDefinitionException();
-                return (SpecialDay)(spec - 1);
-            }
-            else if (arg == "d")
+            if (arg == "d")
                 return SpecialDay.Day;
             else if (arg == "wd")
                 return SpecialDay.WeekDay;
             else if (arg == "we")
                 return SpecialDay.WeekendDay;
-            else
+            else if
+            (
+                !int.TryParse(arg, out spec)
+                || spec < 1
+                || spec > 7
+            )
                 throw new InvalidStrategyDefinitionException();
+            return (SpecialDay)(spec - 1);
         }
 
         public static string GetStrategyDefinitionUsage()
