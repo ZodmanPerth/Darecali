@@ -85,11 +85,20 @@ namespace Darecali
                             throw new InvalidStrategyDefinitionException();
 
                         if (args.Length < 3)
-                            if (!int.TryParse(args[0], out day))
+                            if
+                            (
+                                !int.TryParse(args[0], out day)
+                                || day < 1
+                                || day > 31
+                            )
                                 throw new InvalidStrategyDefinitionException();
 
                         if (args.Length == 2)
-                            if (!int.TryParse(args[1], out n))
+                            if
+                            (
+                                !int.TryParse(args[1], out n)
+                                || n < 1
+                            )
                                 throw new InvalidStrategyDefinitionException();
 
                         if (args.Length == 3)
@@ -100,7 +109,11 @@ namespace Darecali
                             frequency = ParseFrequencyOrThrow(args[0]);
                             specialDay = ParseSpecialDayOrThrow(args[1]);
 
-                            if (!int.TryParse(args[2], out n))
+                            if
+                            (
+                                !int.TryParse(args[2], out n)
+                                || n < 1
+                            )
                                 throw new InvalidStrategyDefinitionException();
 
                             return new EveryFrequencySpecialDayOfEveryNthMonthStrategy(frequency, specialDay, n);

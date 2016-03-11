@@ -34,6 +34,8 @@ namespace Darecali.Tests
 
         #endregion
 
+        #region Wrong parameter count tests
+
         [Test]
         public void Daily_TooManyParamsTest()
         {
@@ -42,6 +44,35 @@ namespace Darecali.Tests
                 var sut = Factory.CreateStrategy("D5,2");
             });
         }
+
+        [Test]
+        public void Weekly_TooManyParamsTest()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("W2,2,2");
+            });
+        }
+
+        [Test]
+        public void Monthly_TooManyParamsTest()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("M2,2,2,2");
+            });
+        }
+
+        [Test]
+        public void Yearly_TooManyParamsTest()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("Y2,2,2,2,2");
+            });
+        }
+
+        #endregion
 
         #region Valid strategy definition parameter tests
 
@@ -91,7 +122,7 @@ namespace Darecali.Tests
         }
 
         [Test]
-        public void WeeklyTwoParamTest()
+        public void Weekly_TwoParamTest()
         {
             DateTime startDate = new DateTime(2016, 03, 07);  //Monday
             var sut = Factory.CreateController(startDate, "W2,2")
@@ -102,7 +133,7 @@ namespace Darecali.Tests
         }
 
         [Test]
-        public void MonthlyNoParamTest()
+        public void Monthly_NoParamTest()
         {
             var startDate = new DateTime(2016, 03, 08);
             var sut = Factory.CreateController(startDate, "M")
@@ -113,7 +144,7 @@ namespace Darecali.Tests
         }
 
         [Test]
-        public void MonthlyOneParamTest()
+        public void Monthly_OneParamTest()
         {
             var startDate = new DateTime(2016, 03, 08);
             var sut = Factory.CreateController(startDate, "M2")
@@ -124,7 +155,7 @@ namespace Darecali.Tests
         }
 
         [Test]
-        public void MonthlyTwoParamTest()
+        public void Monthly_TwoParamTest()
         {
             var startDate = new DateTime(2016, 03, 08);
             var sut = Factory.CreateController(startDate, "M2,2")
@@ -191,9 +222,133 @@ namespace Darecali.Tests
 
         #endregion
 
-        #region Yearly with frequency, special day, month, and n tests
+        #region Out of range parameter tests
 
-        #region Exceptions
+        [Test]
+        public void Daily_ShouldThrowWhenInvalidTextParameterTest()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("Dwz");
+            });
+        }
+
+        [Test]
+        public void WeeklyDays_ShouldThrowWhenDayLessThan1Test()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("W0,1");
+            });
+        }
+
+        [Test]
+        public void WeeklyDays_ShouldThrowWhenDayGreaterThan127Test()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("W128,1");
+            });
+        }
+
+        [Test]
+        public void MonthlyNth_ShouldThrowWhenDayLessThan1Test()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("M0");
+            });
+        }
+
+        [Test]
+        public void MonthlyNth_ShouldThrowWhenDayGreaterThan31Test()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("M32");
+            });
+        }
+
+        [Test]
+        public void MonthlyNth_ShouldThrowWhenNLessThan1Test()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("M1,0");
+            });
+        }
+
+        [Test]
+        public void MonthlyFrequency_ShouldThrowWhenFrequencyLessThan1Test()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("M0,d,1");
+            });
+        }
+
+        [Test]
+        public void MonthlyFrequency_ShouldThrowWhenFrequencyGreaterThan4Test()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("M5,d,1");
+            });
+        }
+
+        [Test]
+        public void MonthlyFrequency_ShouldThrowWhenFrequencyNotValidTextTest()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("M1,aa,1");
+            });
+        }
+
+        [Test]
+        public void MonthlyFrequency_ShouldThrowWhenSpecialDayLessThan1Test()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("M1,0,1");
+            });
+        }
+
+        [Test]
+        public void MonthlyFrequency_ShouldThrowWhenSpecialDayGreaterThan7Test()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("M1,8,1");
+            });
+        }
+
+        [Test]
+        public void MonthlyFrequency_ShouldThrowWhenDayLessThan1Test()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("M1,0,1");
+            });
+        }
+
+        [Test]
+        public void MonthlyFrequency_ShouldThrowWhenDayGreaterThan31Test()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("M1,32,1");
+            });
+        }
+
+        [Test]
+        public void MonthlyFrequency_ShouldThrowWhenNLessThan1Test()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("M1,d,-1");
+            });
+        }
 
         [Test]
         public void YearlyFrequency_ShouldThrowWhenFrequencyLessThan1Test()
@@ -210,6 +365,15 @@ namespace Darecali.Tests
             Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
             {
                 var sut = Factory.CreateStrategy("Y5,d,1,1");
+            });
+        }
+
+        [Test]
+        public void YearlyFrequency_ShouldThrowWhenFrequencyNotValidTextTest()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("Y1,aa,1,1");
             });
         }
 
@@ -232,11 +396,20 @@ namespace Darecali.Tests
         }
 
         [Test]
-        public void YearlyFrequency_ShouldThrowWhenFrequencyNotValidLetterTest()
+        public void YearlyFrequency_ShouldThrowWhenDayLessThan1Test()
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
             {
-                var sut = Factory.CreateStrategy("Y1,aa,1,1");
+                var sut = Factory.CreateStrategy("Y1,0,1,1");
+            });
+        }
+
+        [Test]
+        public void YearlyFrequency_ShouldThrowWhenDayGreaterThan31Test()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            {
+                var sut = Factory.CreateStrategy("Y1,32,1,1");
             });
         }
 
@@ -266,8 +439,6 @@ namespace Darecali.Tests
                 var sut = Factory.CreateStrategy("Y1,1,13,-1");
             });
         }
-
-        #endregion
 
         #endregion
     }
