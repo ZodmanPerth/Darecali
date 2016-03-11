@@ -16,10 +16,8 @@ namespace Darecali.Strategy
 
         public EveryNthMonthOnSpecifiedDayStrategy(int day = 1, int n = 1)
         {
-            if (day < 1 || day > 31)
-                throw new ArgumentOutOfRangeException("day is outside of the valid range");
-            if (n< 1 )
-                throw new ArgumentOutOfRangeException("n must be a positive integer");
+            if (day < 1 || day > 31) throw new ArgumentOutOfRangeException("day is outside of the valid range");
+            if (n < 1) throw new ArgumentOutOfRangeException("n must be a positive integer");
 
             _day = day;
             _n = n;

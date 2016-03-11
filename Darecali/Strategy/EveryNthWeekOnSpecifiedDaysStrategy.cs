@@ -15,8 +15,10 @@ namespace Darecali.Strategy
         List<DayOfWeek> _daysOfWeek;
         DayOfWeek _startDay;
 
-        public EveryNthWeekOnSpecifiedDaysStrategy(DayOfWeekFlags daysOfWeek, int n = 1)
+        public EveryNthWeekOnSpecifiedDaysStrategy(DayOfWeekFlags daysOfWeek = DayOfWeekFlags.EveryDay, int n = 1)
         {
+            if (daysOfWeek < DayOfWeekFlags.Sunday || daysOfWeek > DayOfWeekFlags.EveryDay) throw new ArgumentOutOfRangeException("daysOfWeek");
+
             _n = n;
             _daysOfWeek = GetDaysOfWeek(daysOfWeek).ToList();
         }
@@ -58,7 +60,7 @@ namespace Darecali.Strategy
     [Flags]
     public enum DayOfWeekFlags
     {
-        //NOTE: Powers of two where the power aligns with DayOfWeek
+        //NOTE: Powers of two where the power aligns with the DayOfWeek Enum
 
         Sunday = 1 << 0,
         Monday = 1 << 1,

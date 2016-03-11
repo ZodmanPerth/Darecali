@@ -12,50 +12,41 @@ namespace Darecali.Tests.Strategy
     [Category("Strategy")]
     public class EveryNthMonthOnFrequencySpecialDayStrategyFixture
     {
-        #region Exception tests
+        #region Out of range parameter tests
 
         [Test]
         public void ShouldThrowWhenFrequencyLessThan1Test()
         {
-            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentException>(() =>
             {
-                var sut = Factory.CreateStrategy("M0,d,1");
+                var sut = new EveryNthMonthOnFrequencySpecialDayStrategy(0);
             });
         }
 
         [Test]
-        public void ShouldThrowWhenFrequencyGreaterThan4Test()
+        public void ShouldThrowWhenFrequencyGreaterThan5Test()
         {
-            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentException>(() =>
             {
-                var sut = Factory.CreateStrategy("M5,d,1");
+                var sut = new EveryNthMonthOnFrequencySpecialDayStrategy((Frequency)6);
             });
         }
 
         [Test]
-        public void ShouldThrowWhenSpecialDayLessThan1Test()
+        public void ShouldThrowWhenSpecialDayLessThan0Test()
         {
-            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentException>(() =>
             {
-                var sut = Factory.CreateStrategy("M1,0,1");
+                var sut = new EveryNthMonthOnFrequencySpecialDayStrategy(specialDay: (SpecialDay)(-1));
             });
         }
 
         [Test]
-        public void ShouldThrowWhenSpecialDayGreaterThan7Test()
+        public void ShouldThrowWhenSpecialDayGreaterThan9Test()
         {
-            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
+            Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentException>(() =>
             {
-                var sut = Factory.CreateStrategy("M1,8,1");
-            });
-        }
-
-        [Test]
-        public void ShouldThrowWhenSpecialDayNotValidLetterTest()
-        {
-            Shouldly.ShouldThrowExtensions.ShouldThrow<InvalidStrategyDefinitionException>(() =>
-            {
-                var sut = Factory.CreateStrategy("M1,aa,1");
+                var sut = new EveryNthMonthOnFrequencySpecialDayStrategy(specialDay: (SpecialDay)10);
             });
         }
 
@@ -80,12 +71,48 @@ namespace Darecali.Tests.Strategy
                 .ShouldBe(DateTime.Today, "should be today");
         }
 
-        #endregion
-
-        #region Frequency Tests
+        [Test]
+        public void WeekdayWhenMonthStartsOnAWeekendDayTest()
+        {
+            var startDate = new DateTime(2016, 05, 01);  //Sunday
+            Factory.CreateController(startDate, "M1,wd,1")
+                .First()
+                .ShouldBe(new DateTime(2016, 05, 02), "should be Monday, May 2, 2016");
+        }
 
         [Test]
-        public void EveryFirstDayOfEveryMonthTest()
+        public void WeekendDayWhenStartsOnASundayTest()
+        {
+            var startDate = new DateTime(2016, 05, 01);  //Sunday
+            Factory.CreateController(startDate, "M1,we,1")
+                .First()
+                .ShouldBe(new DateTime(2016, 05, 01), "should be Sunday, May 1, 2016");
+        }
+
+        [Test]
+        public void NoMatchInFirstMonthTest()
+        {
+            var startDate = new DateTime(2016, 02, 29);
+            Factory.CreateController(startDate, "M1,we,1")
+                .First()
+                .ShouldBe(new DateTime(2016, 03, 05), "should be Saturday, March 5, 2016");
+        }
+
+        [Test]
+        public void NoMatchInFirstMonthTest2()
+        {
+            var startDate = new DateTime(2016, 02, 28);
+            Factory.CreateController(startDate, "M2,we,1")
+                .First()
+                .ShouldBe(new DateTime(2016, 03, 06), "should be Sunday, March 6, 2016");
+        }
+
+        #endregion
+
+        #region Frequency tests
+
+        [Test]
+        public void FirstDayOfEveryMonthTest()
         {
             var startDate = new DateTime(2016, 02, 22);
             var sut = Factory.CreateController(startDate, "M1,d,1")
@@ -96,7 +123,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EverySecondDayOfEveryMonthTest()
+        public void SecondDayOfEveryMonthTest()
         {
             var startDate = new DateTime(2016, 02, 22);
             var sut = Factory.CreateController(startDate, "M2,d,1")
@@ -107,7 +134,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryThirdDayOfEveryMonthTest()
+        public void ThirdDayOfEveryMonthTest()
         {
             var startDate = new DateTime(2016, 02, 22);
             var sut = Factory.CreateController(startDate, "M3,d,1")
@@ -118,7 +145,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryFourthDayOfEveryMonthTest()
+        public void FourthDayOfEveryMonthTest()
         {
             var startDate = new DateTime(2016, 02, 22);
             var sut = Factory.CreateController(startDate, "M4,d,1")
@@ -129,7 +156,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryLastDayOfEveryMonthTest()
+        public void LastDayOfEveryMonthTest()
         {
             var startDate = new DateTime(2016, 02, 22);
             var sut = Factory.CreateController(startDate, "ML,d,1")
@@ -141,10 +168,10 @@ namespace Darecali.Tests.Strategy
 
         #endregion
 
-        #region SpecialDay Tests
+        #region SpecialDay tests
 
         [Test]
-        public void EveryFirstWeekDayOfEveryMonthTest()
+        public void FirstWeekDayOfEveryMonthTest()
         {
             var startDate = new DateTime(2016, 02, 22);
             var sut = Factory.CreateController(startDate, "M1,wd,1")
@@ -155,7 +182,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryFirstWeekendDayOfEveryMonthTest()
+        public void FirstWeekendDayOfEveryMonthTest()
         {
             var startDate = new DateTime(2016, 02, 22);
             var sut = Factory.CreateController(startDate, "M1,we,1")
@@ -166,7 +193,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryFirstSundayOfEveryMonthTest()
+        public void FirstSundayOfEveryMonthTest()
         {
             var startDate = new DateTime(2016, 02, 22);
             var sut = Factory.CreateController(startDate, "M1,1,1")
@@ -177,7 +204,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryFirstMondayOfEveryMonthTest()
+        public void FirstMondayOfEveryMonthTest()
         {
             var startDate = new DateTime(2016, 02, 22);
             var sut = Factory.CreateController(startDate, "M1,2,1")
@@ -188,7 +215,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryFirstTuesdayOfEveryMonthTest()
+        public void FirstTuesdayOfEveryMonthTest()
         {
             var startDate = new DateTime(2016, 02, 22);
             var sut = Factory.CreateController(startDate, "M1,3,1")
@@ -199,7 +226,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryFirstWednesdayOfEveryMonthTest()
+        public void FirstWednesdayOfEveryMonthTest()
         {
             var startDate = new DateTime(2016, 02, 22);
             var sut = Factory.CreateController(startDate, "M1,4,1")
@@ -210,7 +237,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryFirstThursdayOfEveryMonthTest()
+        public void FirstThursdayOfEveryMonthTest()
         {
             var startDate = new DateTime(2016, 02, 22);
             var sut = Factory.CreateController(startDate, "M1,5,1")
@@ -221,7 +248,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryFirstFridayOfEveryMonthTest()
+        public void FirstFridayOfEveryMonthTest()
         {
             var startDate = new DateTime(2016, 02, 22);
             var sut = Factory.CreateController(startDate, "M1,6,1")
@@ -232,7 +259,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryFirstSaturdayOfEveryMonthTest()
+        public void FirstSaturdayOfEveryMonthTest()
         {
             var startDate = new DateTime(2016, 02, 22);
             var sut = Factory.CreateController(startDate, "M1,7,1")
@@ -244,10 +271,10 @@ namespace Darecali.Tests.Strategy
 
         #endregion
 
-        #region Not Every Month Tests
+        #region Nth month tests
 
         [Test]
-        public void EverySecondTuesdayOfEverySecondMonthTest()
+        public void SecondTuesdayOfEverySecondMonthTest()
         {
             var startDate = new DateTime(2016, 03, 01);
             var sut = Factory.CreateController(startDate, "M2,3,2")
@@ -258,7 +285,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EverySecondTuesdayOfEveryThirdMonthTest()
+        public void SecondTuesdayOfEveryThirdMonthTest()
         {
             var startDate = new DateTime(2016, 03, 01);
             var sut = Factory.CreateController(startDate, "M2,3,3")
@@ -266,46 +293,6 @@ namespace Darecali.Tests.Strategy
             sut[0].ShouldBe(new DateTime(2016, 03, 08), "should be Tuesday, March 8, 2016");
             sut[1].ShouldBe(new DateTime(2016, 06, 14), "should be Tuesday, June 14, 2016");
             sut[2].ShouldBe(new DateTime(2016, 09, 13), "should be Tuesday, September 13, 2016");
-        }
-
-        #endregion
-
-        #region Outlier Tests
-
-        [Test]
-        public void FirstWeekdayWhenMonthStartsOnAWeekendDayTest()
-        {
-            var startDate = new DateTime(2016, 05, 01);  //Sunday
-            Factory.CreateController(startDate, "M1,wd,1")
-                .First()
-                .ShouldBe(new DateTime(2016, 05, 02), "should be Monday, May 2, 2016");
-        }
-
-        [Test]
-        public void FirstWeekendDayWhenStartsOnASundayTest()
-        {
-            var startDate = new DateTime(2016, 05, 01);  //Sunday
-            Factory.CreateController(startDate, "M1,we,1")
-                .First()
-                .ShouldBe(new DateTime(2016, 05, 01), "should be Sunday, May 1, 2016");
-        }
-
-        [Test]
-        public void WhenNoMatchInFirstMonthTest()
-        {
-            var startDate = new DateTime(2016, 02, 29);
-            Factory.CreateController(startDate, "M1,we,1")
-                .First()
-                .ShouldBe(new DateTime(2016, 03, 05), "should be Saturday, March 5, 2016");
-        }
-
-        [Test]
-        public void WhenNoMatchInFirstMonthTest2()
-        {
-            var startDate = new DateTime(2016, 02, 28);
-            Factory.CreateController(startDate, "M2,we,1")
-                .First()
-                .ShouldBe(new DateTime(2016, 03, 06), "should be Sunday, March 6, 2016");
         }
 
         #endregion

@@ -16,10 +16,32 @@ namespace Darecali.Tests.Strategy
         const int weekendDayFlags = (int)DayOfWeekFlags.WeekendDays;
         const int ThursdayFridaySaturdayFlags = (int)(DayOfWeekFlags.Thursday | DayOfWeekFlags.Friday | DayOfWeekFlags.Saturday);
 
-        #region Nth Week Tests
+        #region Out of range parameter tests
 
         [Test]
-        public void Every1WeekTest()
+        public void ShouldThrowWhenDaysOfWeekLessThan1Test()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentException>(() =>
+            {
+                var sut = new EveryNthWeekOnSpecifiedDaysStrategy(0);
+            });
+        }
+
+        [Test]
+        public void ShouldThrowWhenDaysOfWeekGreaterThan127Test()
+        {
+            Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentException>(() =>
+            {
+                var sut = new EveryNthWeekOnSpecifiedDaysStrategy((DayOfWeekFlags)128);
+            });
+        }
+
+        #endregion
+
+        #region Nth week tests
+
+        [Test]
+        public void EveryOneWeekTest()
         {
             var sut = Factory.CreateController(DateTime.Today, "W1")
                 .Take(21).ToList();
@@ -57,10 +79,10 @@ namespace Darecali.Tests.Strategy
 
         #endregion
 
-        #region Weekday Tests
+        #region Weekday tests
 
         [Test]
-        public void EveryWeekDayEveryWeekTest()
+        public void WeekdaysEveryWeekTest()
         {
             #region Expected Results
 
@@ -96,7 +118,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryWeekDayEveryTwoWeeksTest()
+        public void WeekdaysEveryTwoWeeksTest()
         {
             #region Expected Results
 
@@ -132,7 +154,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryWeekDayEveryThreeWeeksTest()
+        public void WeekdaysEveryThreeWeeksTest()
         {
             #region Expected Results
 
@@ -169,10 +191,10 @@ namespace Darecali.Tests.Strategy
 
         #endregion
 
-        #region Weekend Day Tests
+        #region Weekend day tests
 
         [Test]
-        public void EveryWeekendDayEveryWeekTest()
+        public void WeekendDaysEveryWeekTest()
         {
             #region Expected Results
 
@@ -199,7 +221,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryDayEveryTwoWeeksTest()
+        public void WeekendDaysEveryTwoWeeksTest()
         {
             #region Expected Results
 
@@ -236,7 +258,7 @@ namespace Darecali.Tests.Strategy
 
         #endregion
 
-        #region Non-matching start date Tests
+        #region Non-matching start date tests
 
         [Test]
         public void EveryThursdayFridaySaturdayStartingTuesdayEveryWeekTest()

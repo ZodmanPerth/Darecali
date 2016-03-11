@@ -16,8 +16,9 @@ namespace Darecali.Strategy
 
         public EveryNthMonthOnFrequencySpecialDayStrategy(Frequency frequency = Frequency.First, SpecialDay specialDay = SpecialDay.WeekDay, int n = 1)
         {
-            if (n < 1)
-                throw new ArgumentOutOfRangeException("n must be a positive integer");
+            if (!Enum.IsDefined(typeof(Frequency), frequency)) throw new ArgumentException("frequency");
+            if (!Enum.IsDefined(typeof(SpecialDay), specialDay)) throw new ArgumentException("specialDay");
+            if (n < 1) throw new ArgumentOutOfRangeException("n must be a positive integer");
 
             _frequency = frequency;
             _specialDay = specialDay;

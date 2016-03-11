@@ -12,7 +12,7 @@ namespace Darecali.Tests.Strategy
     [Category("Strategy")]
     public class EveryNthYearOnSpecifiedDayAndMonthStrategyFixture
     {
-        #region Exception tests
+        #region Out of range parameter tests
 
         [Test]
         public void ShouldThrowWhenMonthLessThan1Test()
@@ -61,7 +61,7 @@ namespace Darecali.Tests.Strategy
 
         [TestCase(2, 30)]
         [TestCase(2, 31)]
-        public void ShouldThrowWhenInvalidDateFebruaryTest(int month, int day)
+        public void ShouldThrowWhenInvalidDateInFebruaryTest(int month, int day)
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentOutOfRangeException>(() =>
             {
@@ -81,7 +81,7 @@ namespace Darecali.Tests.Strategy
         [TestCase(4)]
         [TestCase(6)]
         [TestCase(11)]
-        public void ShouldThrowWhenInvalidDateMonthsWithOnly30DaysTest(int month)
+        public void ShouldThrowWhenInvalidDateInMonthsWithOnly30DaysTest(int month)
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentOutOfRangeException>(() =>
             {
@@ -122,8 +122,10 @@ namespace Darecali.Tests.Strategy
 
         #endregion
 
+        #region Nth year tests
+
         [Test]
-        public void EveryOctober6EveryYearTest()
+        public void October6EveryYearTest()
         {
             var startDate = new DateTime(2016, 03, 03);
             var sut = Factory.CreateController(startDate, "Y10,6")
@@ -134,7 +136,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryOctober6EveryTwoYearsTest()
+        public void October6EveryTwoYearsTest()
         {
             var startDate = new DateTime(2016, 03, 03);
             var sut = Factory.CreateController(startDate, "Y10,6,2")
@@ -145,7 +147,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryOctober6EveryThreeYearsTest()
+        public void October6EveryThreeYearsTest()
         {
             var startDate = new DateTime(2016, 03, 03);
             var sut = Factory.CreateController(startDate, "Y10,6,3")
@@ -154,6 +156,8 @@ namespace Darecali.Tests.Strategy
             sut[1].ShouldBe(new DateTime(2019, 10, 06), "should be October 6, 2019");
             sut[2].ShouldBe(new DateTime(2022, 10, 06), "should be October 6, 2022");
         }
+
+        #endregion
 
         #region Date not available every year tests (Feb 29 tests)
 

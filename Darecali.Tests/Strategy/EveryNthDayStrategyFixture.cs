@@ -36,6 +36,8 @@ namespace Darecali.Tests.Strategy
 
         #endregion
 
+        #region Nth day tests
+
         [TestCase("D", TestName = "Implicit Every Day Test")]
         [TestCase("D1", TestName = "Explicit Every Day Test")]
         public void EveryDayTest(string definition)
@@ -66,5 +68,7 @@ namespace Darecali.Tests.Strategy
             sut[1].ShouldBe(DateTime.Today.AddDays(3), "should be today + 3");
             sut[2].ShouldBe(DateTime.Today.AddDays(6), "should be today + 6");
         }
+
+        #endregion
     }
 }

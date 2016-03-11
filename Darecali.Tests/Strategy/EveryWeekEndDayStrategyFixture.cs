@@ -13,7 +13,7 @@ namespace Darecali.Tests.Strategy
     public class EveryWeekEndDayStrategyFixture
     {
         [Test]
-        public void EveryWeekEndDayTest()
+        public void WeekendDaysTest()
         {
             #region Expected Results
 
@@ -40,7 +40,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryWeekEndDayStartingWednesdayTest()
+        public void WeekendDaysStartingWednesdayTest()
         {
             #region Expected Results
 
@@ -67,7 +67,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryWeekEndDayStartingSaturdayTest()
+        public void WeekendDaysStartingSaturdayTest()
         {
             #region Expected Results
 
@@ -94,7 +94,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryWeekDayStartingSundayTest()
+        public void WeekendDaysStartingSundayTest()
         {
             #region Expected Results
 
@@ -118,6 +118,5 @@ namespace Darecali.Tests.Strategy
             for (int i = 0; i < expectedResults.Count; i++)
                 sut[i].ShouldBe(expectedResults[i], string.Format("at {0}, should be {1}", i, expectedResults[i].ToString("D")));
         }
-
     }
 }

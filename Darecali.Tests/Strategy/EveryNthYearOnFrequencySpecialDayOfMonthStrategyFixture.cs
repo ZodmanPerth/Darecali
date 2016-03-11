@@ -12,7 +12,7 @@ namespace Darecali.Tests.Strategy
     [Category("Strategy")]
     public class EveryNthYearOnFrequencySpecialDayOfMonthStrategyFixture
     {
-        #region Exception tests
+        #region Out of range parameter tests
 
         [Test]
         public void ShouldThrowWhenFrequencyLessThan1Test()
@@ -24,11 +24,11 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void ShouldThrowWhenFrequencyGreaterThan4Test()
+        public void ShouldThrowWhenFrequencyGreaterThan5Test()
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentException>(() =>
             {
-                var sut = new EveryNthYearOnFrequencySpecialDayOfMonthStrategy((Frequency)10);
+                var sut = new EveryNthYearOnFrequencySpecialDayOfMonthStrategy((Frequency)6);
             });
         }
 
@@ -128,10 +128,10 @@ namespace Darecali.Tests.Strategy
 
         #endregion
 
-        #region Frequency Tests
+        #region Frequency tests
 
         [Test]
-        public void EveryFirstDayOfAprilEveryYearTest()
+        public void FirstDayOfAprilEveryYearTest()
         {
             var startDate = new DateTime(2016, 03, 08);
             var sut = Factory.CreateController(startDate, "Y1,d,4,1")
@@ -142,7 +142,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EverySecondDayOfAprilEveryYearTest()
+        public void SecondDayOfAprilEveryYearTest()
         {
             var startDate = new DateTime(2016, 03, 08);
             var sut = Factory.CreateController(startDate, "Y2,d,4,1")
@@ -153,7 +153,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryThirdDayOfAprilEveryYearTest()
+        public void ThirdDayOfAprilEveryYearTest()
         {
             var startDate = new DateTime(2016, 03, 08);
             var sut = Factory.CreateController(startDate, "Y3,d,4,1")
@@ -164,7 +164,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryFourthDayOfAprilEveryYearTest()
+        public void FourthDayOfAprilEveryYearTest()
         {
             var startDate = new DateTime(2016, 03, 08);
             var sut = Factory.CreateController(startDate, "Y4,d,4,1")
@@ -175,7 +175,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryLastDayOfAprilEveryYearTest()
+        public void LastDayOfAprilEveryYearTest()
         {
             var startDate = new DateTime(2016, 03, 08);
             var sut = Factory.CreateController(startDate, "YL,d,4,1")
@@ -187,10 +187,10 @@ namespace Darecali.Tests.Strategy
 
         #endregion
 
-        #region SpecialDay Tests
+        #region SpecialDay tests
 
         [Test]
-        public void EveryFirstWeekDayOfAprilEveryYearTest()
+        public void FirstWeekDayOfAprilEveryYearTest()
         {
             var startDate = new DateTime(2016, 03, 08);
             var sut = Factory.CreateController(startDate, "Y1,wd,4,1")
@@ -201,7 +201,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryFirstWeekendDayOfAprilEveryYearTest()
+        public void FirstWeekendDayOfAprilEveryYearTest()
         {
             var startDate = new DateTime(2016, 03, 08);
             var sut = Factory.CreateController(startDate, "Y1,we,4,1")
@@ -212,7 +212,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryFirstSundayOfAprilEveryYearTest()
+        public void FirstSundayOfAprilEveryYearTest()
         {
             var startDate = new DateTime(2016, 03, 08);
             var sut = Factory.CreateController(startDate, "Y1,1,4,1")
@@ -223,7 +223,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryFirstMondayOfAprilEveryYearTest()
+        public void FirstMondayOfAprilEveryYearTest()
         {
             var startDate = new DateTime(2016, 03, 08);
             var sut = Factory.CreateController(startDate, "Y1,2,4,1")
@@ -234,7 +234,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryFirstTuesdayOfAprilEveryYearTest()
+        public void FirstTuesdayOfAprilEveryYearTest()
         {
             var startDate = new DateTime(2016, 03, 08);
             var sut = Factory.CreateController(startDate, "Y1,3,4,1")
@@ -245,7 +245,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryFirstWednesdayOfAprilEveryYearTest()
+        public void FirstWednesdayOfAprilEveryYearTest()
         {
             var startDate = new DateTime(2016, 03, 08);
             var sut = Factory.CreateController(startDate, "Y1,4,4,1")
@@ -256,7 +256,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryFirstThursdayOfAprilEveryYearTest()
+        public void FirstThursdayOfAprilEveryYearTest()
         {
             var startDate = new DateTime(2016, 03, 08);
             var sut = Factory.CreateController(startDate, "Y1,5,4,1")
@@ -267,7 +267,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryFirstFridayOfAprilEveryYearTest()
+        public void FirstFridayOfAprilEveryYearTest()
         {
             var startDate = new DateTime(2016, 03, 08);
             var sut = Factory.CreateController(startDate, "Y1,6,4,1")
@@ -278,7 +278,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryFirstSaturdayOfEveryMonthTest()
+        public void FirstSaturdayOfEveryMonthTest()
         {
             var startDate = new DateTime(2016, 03, 08);
             var sut = Factory.CreateController(startDate, "Y1,7,4,1")
@@ -290,7 +290,7 @@ namespace Darecali.Tests.Strategy
 
         #endregion
 
-        #region Not Every Year Tests
+        #region Nth year tests
 
         [Test]
         public void EverySecondTuesdayOfAprilEverySecondYearTest()

@@ -12,7 +12,7 @@ namespace Darecali.Tests.Strategy
     [Category("Strategy")]
     public class EveryNthMonthOnSpecifiedDayStrategyFixture
     {
-        #region Exception tests
+        #region Out of range parameter tests
 
         [Test]
         public void ShouldThrowWhenDayLessThan1Test()
@@ -37,7 +37,7 @@ namespace Darecali.Tests.Strategy
         {
             Shouldly.ShouldThrowExtensions.ShouldThrow<ArgumentOutOfRangeException>(() =>
             {
-                var sut = new EveryNthMonthOnSpecifiedDayStrategy(30, 0);
+                var sut = new EveryNthMonthOnSpecifiedDayStrategy(n: 0);
             });
         }
 
@@ -73,8 +73,10 @@ namespace Darecali.Tests.Strategy
 
         #endregion
 
+        #region Nth month tests
+
         [Test]
-        public void EveryDay5EveryMonthTest()
+        public void Day5EveryMonthTest()
         {
             var startDate = new DateTime(2016, 02, 24);
             var sut = Factory.CreateController(startDate, "M5")
@@ -85,7 +87,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryDay5EverySecondMonthTest()
+        public void Day5EverySecondMonthTest()
         {
             var startDate = new DateTime(2016, 02, 24);
             var sut = Factory.CreateController(startDate, "M5,2")
@@ -96,7 +98,7 @@ namespace Darecali.Tests.Strategy
         }
 
         [Test]
-        public void EveryDay5EveryThirdMonthTest()
+        public void Day5EveryThirdMonthTest()
         {
             var startDate = new DateTime(2016, 02, 24);
             var sut = Factory.CreateController(startDate, "M5,3")
@@ -106,7 +108,9 @@ namespace Darecali.Tests.Strategy
             sut[2].ShouldBe(new DateTime(2016, 09, 05), "should be Septeber 5, 2016");
         }
 
-        #region Day not available every month tests
+        #endregion
+
+        #region Date not available every month tests
 
         [Test]
         public void EveryDay31EveryMonthTest()
