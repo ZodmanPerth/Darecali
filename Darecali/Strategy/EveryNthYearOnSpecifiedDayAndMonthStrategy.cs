@@ -18,11 +18,11 @@ namespace Darecali.Strategy
 
         public EveryNthYearOnSpecifiedDayAndMonthStrategy(int month = 1, int day = 1, int n = 1)
         {
-            if (month < 1 || month > 12) throw new ArgumentOutOfRangeException("month");
-            if (day < 1 || day > 31) throw new ArgumentOutOfRangeException("day");
-            if (n < 1) throw new ArgumentOutOfRangeException("n");
+            if (month < 1 || month > 12) throw new ArgumentOutOfRangeException("month is outside the valid range");
+            if (day < 1 || day > 31) throw new ArgumentOutOfRangeException("day is outside the valid range");
+            if (n < 1) throw new ArgumentOutOfRangeException("n must be a positive integer");
 
-            //GUARD: Ensure the day/month combination is valid, throw otherwise
+            //GUARD: Ensure the day/month combination is valid, throws otherwise
             var date = new DateTime(2016, month, day);
 
             _isFebruary29th = month == 2 && day == 29;

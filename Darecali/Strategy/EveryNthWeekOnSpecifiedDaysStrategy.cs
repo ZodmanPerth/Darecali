@@ -17,7 +17,7 @@ namespace Darecali.Strategy
 
         public EveryNthWeekOnSpecifiedDaysStrategy(DayOfWeekFlags daysOfWeek = DayOfWeekFlags.EveryDay, int n = 1)
         {
-            if (daysOfWeek < DayOfWeekFlags.Sunday || daysOfWeek > DayOfWeekFlags.EveryDay) throw new ArgumentOutOfRangeException("daysOfWeek");
+            if (daysOfWeek < DayOfWeekFlags.Sunday || daysOfWeek > DayOfWeekFlags.EveryDay) throw new ArgumentOutOfRangeException("daysOfWeek is outside the valid range");
 
             _n = n;
             _daysOfWeek = GetDaysOfWeek(daysOfWeek).ToList();
