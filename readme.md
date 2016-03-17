@@ -27,6 +27,18 @@ Provides support for all recurrence strategies available in Microsoft Outlook, a
 * Monthly
  * Day _{dayOfMonth}_ of every _{n}_ month(s)
 
+## Considerations for consumers
+
+### Start date influences first match
+The start date affects the start of the period where recurrences are possible for the first match.  This can result in a first match that may seem counter intuitive. 
+
+>Example: "Recur the 1st day of every month" matches the start date for the first match, no matter what day of the month the start date is.
+
+### Strategies employ slippage
+Strategies make no guarantee there will be a match in a particular period, which may seem counter intuitive.  
+
+>Example: "Recur every month on the 30th day of the month" will never match in February.
+
 ## Specifying a strategy
 
 Use the `Factory` to create a `SequenceController` with either:
