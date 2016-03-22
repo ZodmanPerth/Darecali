@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8C213538-4FC3-47C9-B7F5-2AA4EB64C62D}</ProjectGuid>
+    <ProjectGuid>{FEE8CDB5-58FF-4B1A-A881-FA92300AAB91}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Darecali</RootNamespace>
-    <AssemblyName>Darecali</AssemblyName>
+    <RootNamespace>Darecali.Deployment</RootNamespace>
+    <AssemblyName>Darecali.Deployment</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,21 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InvalidStrategyDefinitionException.cs" />
-    <Compile Include="SequenceController.cs" />
-    <Compile Include="Factory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Strategy\EveryNthMonthOnSpecifiedDayStrategy.cs" />
-    <Compile Include="Strategy\EveryNthYearOnFrequencySpecialDayOfMonthStrategy.cs" />
-    <Compile Include="Strategy\EveryNthMonthOnFrequencySpecialDayStrategy.cs" />
-    <Compile Include="Strategy\EveryNthYearOnSpecifiedDayAndMonthStrategy.cs" />
-    <Compile Include="Strategy\EveryNthWeekOnSpecifiedDaysStrategy.cs" />
-    <Compile Include="Strategy\EveryNthDayStrategy.cs" />
-    <Compile Include="Strategy\IRecurrenceStrategy.cs" />
-    <Compile Include="Strategy\SharedEnums.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="readme.md" />
+    <None Include="Scripts\PowerShell\Build-VisualStudioSolution.ps1" />
+    <None Include="Scripts\PowerShell\BuildAndDeployNugetLocal.ps1" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
