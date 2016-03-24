@@ -54,10 +54,10 @@
     <Compile Include="Strategy\SharedEnums.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="readme.md" />
+    <None Include="Darecali.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="License.txt" />
+    <Content Include="license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
