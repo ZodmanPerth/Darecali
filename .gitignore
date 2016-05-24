@@ -2,6 +2,9 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/Darecali.Tests/bin/Debug
-/Darecali.Tests/obj/Debug
-/Darecali/obj/Debug
+/Darecali.Tests/bin
+/Darecali.Tests/obj
+/Darecali/bin
+/Darecali/obj
+/Darecali.Deployment/bin
+/Darecali.Deployment/obj
