@@ -23,10 +23,15 @@ Provides support for all recurrence strategies available in Microsoft Outlook, a
  * Every weekday
  * Every weekend day
 * Weekly
- * Every _{n}_ week(s) on specified days of the week
+ * Every day, every _{n}_ week(s)
+ * Every _{n}_ week(s) on specified day(s)
 * Monthly
- * Day _{dayOfMonth}_ of every _{n}_ month(s)
-
+ * Every _{n}_ month(s) on specified day(s)
+ * Every _{frequency}_ _{day}_ of every _{n}_ month(s)
+* Yearly
+ * Every _{n}_ year(s) on the specified day and month
+ * Every _{frequency}_ _{day}_ of every specified month, every _{n}_ years
+ 
 ## Considerations for consumers
 
 ### Start date influences first match
