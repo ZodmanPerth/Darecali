@@ -3,7 +3,7 @@
 
 **DA**TE **RE**CURRENCE **CA**LCULATION **LI**BRARY
 
-Pronounced **dah-rec-ah-lee**, like "directly" but without the "t".
+>Pronounced **dah-rec-ah-lee**
 
 Produces sequences of dates using a specified recurrence strategy.  Sequence controllers determine if and how a date sequence terminates.
 
