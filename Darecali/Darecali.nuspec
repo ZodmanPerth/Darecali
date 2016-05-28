@@ -6,8 +6,8 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>http://darecali.github.com-TODO/license.txt</licenseUrl>
-    <projectUrl>http://darecali.github.com-TODO</projectUrl>
+    <licenseUrl>https://github.com/ZodmanPerth/Darecali/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/ZodmanPerth/Darecali/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Initial release.</releaseNotes>

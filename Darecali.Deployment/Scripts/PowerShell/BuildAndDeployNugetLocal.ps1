@@ -1,5 +1,6 @@
 ﻿$solutionFile = "C:\Carl\dev\Darecali\Darecali.sln"
-$sourceRootFolder = "C:\Carl\dev\Darecali\Darecali\"
+$sourceRootFolder = "C:\Carl\dev\Darecali\Darecali"
+$scriptFolder = "$sourceRootFolder.Deployment\Scripts\PowerShell"
 $sourceTitle = "Darecali"
 $nugetRepositoryFolder = "c:\nuget\"
 
@@ -13,7 +14,7 @@ Set-Location $sourceRootFolder
 
 # Build Solution in release mode
 Write-Progress -Id $progressId -Activity $progressActivity -Status "Building solution" -PercentComplete ($progressPercentage += $progressStep);
-Import-Module .\Build-VisualStudioSolution.ps1
+Import-Module $scriptFolder\Build-VisualStudioSolution.ps1
 Build-VisualStudioSolution -SolutionFilePath $solutionFile -Configuration "release" -CleanFirst -Silent
 
 # Package for nuGet
@@ -22,7 +23,7 @@ $packageOutput = (nuget pack "$sourceTitle.csproj" -Prop Configuration=Release)
 
 # Copy Compiled nuGet package to local repository
 Write-Progress -Id $progressId -Activity $progressActivity -Status "Copying package to local NuGet repository" -PercentComplete ($progressPercentage += $progressStep);
-$package = (Get-ChildItem *.nupkg | Sort-Object -Property ($_.LastWriteTime) -Descending).Name[0]
+$package = (Get-ChildItem *.nupkg | Sort-Object -Property ($_.LastWriteTime) -Descending).Name
 copy-item $package $nugetRepositoryFolder
 
 Write-Progress -Id $progressId -Activity $progressActivity -Completed;
