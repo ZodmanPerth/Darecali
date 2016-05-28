@@ -1,10 +1,7 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-/Darecali.Tests/bin
+﻿/Darecali.Tests/bin
 /Darecali.Tests/obj
 /Darecali/bin
 /Darecali/obj
 /Darecali.Deployment/bin
 /Darecali.Deployment/obj
+*.nupkg
