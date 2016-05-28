@@ -23,7 +23,7 @@ $packageOutput = (nuget pack "$sourceTitle.csproj" -Prop Configuration=Release)
 
 # Copy Compiled nuGet package to local repository
 Write-Progress -Id $progressId -Activity $progressActivity -Status "Copying package to local NuGet repository" -PercentComplete ($progressPercentage += $progressStep);
-$package = (Get-ChildItem *.nupkg | Sort-Object -Property ($_.LastWriteTime) -Descending).Name
+$package = (Get-ChildItem *.nupkg | Sort-Object -Property ($_.LastWriteTime) -Descending).Name[0]
 copy-item $package $nugetRepositoryFolder
 
 Write-Progress -Id $progressId -Activity $progressActivity -Completed;
