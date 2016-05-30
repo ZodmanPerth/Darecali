@@ -1,6 +1,9 @@
 
 # Darecali
 
+[![NuGet](https://img.shields.io/nuget/v/darecali.svg)](https://www.nuget.org/packages/Darecali)
+
+
 **DA**TE **RE**CURRENCE **CA**LCULATION **LI**BRARY
 
 >Pronounced **dah-rec-ah-lee**
