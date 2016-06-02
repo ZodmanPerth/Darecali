@@ -4,6 +4,8 @@
 /Darecali/obj
 /Darecali.Deployment/bin
 /Darecali.Deployment/obj
+/Darecali.Samples/bin
+/Darecali.Samples/obj
 # NuGet Packages
 *.nupkg
 # The packages folder can be ignored because of Package Restore
