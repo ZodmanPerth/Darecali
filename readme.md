@@ -74,7 +74,7 @@ M[day[,n]]               - Monthly: every n month(s) on specified day
 Mfrequency,day,n         - Monthly: every frequency day of every n month(s)
                                     where frequency is 1-4 for First-Fourth
                                                     or 'L' for Last
-                                          day is 1-7 for Sunday-Monday
+                                          day is 1-7 for Sunday-Saturday
                                               or 'd' for day
                                               or 'wd' for weekday
                                               or 'we' for weekend day
@@ -86,7 +86,7 @@ Y[month[,day[,n]]]       - Yearly : every n year(s) on the specified day and mon
 Yfrequency,day,month,n   - Yearly : the frequency day of specified month, every n year(s)
                                     where frequency is 1-4 for First-Fourth
                                                     or 'L' for Last
-                                          day is 1-7 for Sunday-Monday
+                                          day is 1-7 for Sunday-Saturday
                                               or 'd' for day
                                               or 'wd' for weekday
                                               or 'we' for weekend day

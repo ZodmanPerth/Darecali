@@ -221,7 +221,7 @@ namespace Darecali
             sb.AppendLine("Mfrequency,day,n         - Monthly: every frequency day of every n month(s)");
             sb.AppendLine("                                    where frequency is 1-4 for First-Fourth");
             sb.AppendLine("                                                    or 'L' for Last");
-            sb.AppendLine("                                          day is 1-7 for Sunday-Monday");
+            sb.AppendLine("                                          day is 1-7 for Sunday-Saturday");
             sb.AppendLine("                                              or 'd' for day");
             sb.AppendLine("                                              or 'wd' for weekday");
             sb.AppendLine("                                              or 'we' for weekend day");
@@ -233,7 +233,7 @@ namespace Darecali
             sb.AppendLine("Yfrequency,day,month,n   - Yearly : the frequency day of specified month, every n year(s)");
             sb.AppendLine("                                    where frequency is 1-4 for First-Fourth");
             sb.AppendLine("                                                    or 'L' for Last");
-            sb.AppendLine("                                          day is 1-7 for Sunday-Monday");
+            sb.AppendLine("                                          day is 1-7 for Sunday-Saturday");
             sb.AppendLine("                                              or 'd' for day");
             sb.AppendLine("                                              or 'wd' for weekday");
             sb.AppendLine("                                              or 'we' for weekend day");
