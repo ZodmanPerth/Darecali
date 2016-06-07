@@ -17,7 +17,7 @@ Provides support for all recurrence strategies available in Microsoft Outlook, a
 * Non-terminating (infinite sequence; no end date)
 * Terminates at a specified date
 * Terminates after a specified number of occurrences
-* Terminates at either an end date or a number of occurrences, whichever comes first
+* Terminates at either a specified date or after a number of occurrences (whichever comes first)
 
 ## Recurrence strategies
 

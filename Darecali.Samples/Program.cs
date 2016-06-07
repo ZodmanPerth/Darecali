@@ -10,7 +10,7 @@ namespace Darecali.Samples
     {
         public static void Main()
         {
-            WikiSamples.RecurEveryFourthTuesdayOfOctoberEverySecondYearTest();
+            WikiSamples.RecurEveryWeekdayAndTerminateAtTheFirstOfJulyOrAfter15Times();
 
             Console.WriteLine("\nPress any key to continue...");
             Console.ReadKey(true);

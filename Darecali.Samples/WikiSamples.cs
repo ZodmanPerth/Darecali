@@ -108,5 +108,35 @@ namespace Darecali.Samples
         }
 
         #endregion
+
+        #region Terminating sequences
+
+        public static void RecurEveryWeekdayUntilTheFirstOfJuly()
+        {
+            var startDate = new DateTime(2016, 06, 07);
+            var terminationDate = new DateTime(2016, 07, 01);
+            var controller = Factory.CreateController(startDate, "Dwd", terminationDate);
+            foreach (var date in controller)
+                Console.WriteLine(date.ToLongDateString());
+        }
+
+        public static void RecurEveryWeekday7Times()
+        {
+            var startDate = new DateTime(2016, 06, 07);
+            var controller = Factory.CreateController(startDate, "Dwd", numberOfOccurrences: 7);
+            foreach (var date in controller)
+                Console.WriteLine(date.ToLongDateString());
+        }
+
+        public static void RecurEveryWeekdayAndTerminateAtTheFirstOfJulyOrAfter15Times()
+        {
+            var startDate = new DateTime(2016, 06, 07);
+            var terminationDate = new DateTime(2016, 07, 01);
+            var controller = Factory.CreateController(startDate, "Dwd", terminationDate, 15);
+            foreach (var date in controller)
+                Console.WriteLine(date.ToLongDateString());
+        }
+
+        #endregion
     }
 }
