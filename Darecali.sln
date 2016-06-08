@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Darecali", "Darecali\Darecali.csproj", "{8C213538-4FC3-47C9-B7F5-2AA4EB64C62D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Darecali.Tests", "Darecali.Tests\Darecali.Tests.csproj", "{4E5E2879-E7AD-4AC8-9FE0-B527BE3D579D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Darecali.Deployment", "Darecali.Deployment\Darecali.Deployment.csproj", "{FEE8CDB5-58FF-4B1A-A881-FA92300AAB91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Darecali.Samples", "Darecali.Samples\Darecali.Samples.csproj", "{B60F2489-08D3-4933-B6DD-D6697EA82C8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{FEE8CDB5-58FF-4B1A-A881-FA92300AAB91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEE8CDB5-58FF-4B1A-A881-FA92300AAB91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEE8CDB5-58FF-4B1A-A881-FA92300AAB91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B60F2489-08D3-4933-B6DD-D6697EA82C8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B60F2489-08D3-4933-B6DD-D6697EA82C8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B60F2489-08D3-4933-B6DD-D6697EA82C8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B60F2489-08D3-4933-B6DD-D6697EA82C8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
