@@ -2,7 +2,7 @@
 # Darecali
 
 [![NuGet](https://img.shields.io/nuget/v/darecali.svg)](https://www.nuget.org/packages/Darecali)
-
+[![Samples](https://img.shields.io/badge/wiki-samples-brightgreen.svg)](https://github.com/ZodmanPerth/Darecali/wiki/Samples)
 
 **DA**TE **RE**CURRENCE **CA**LCULATION **LI**BRARY
 
