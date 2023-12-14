@@ -1,11 +1,11 @@
 repo_name: ZodmanPerth/Darecali
-report_id: 3cbb0f851e5814fbac949a46732495a1
+report_id: c0c7b508d45d464aef667500297d890f
 repo_type: Public
-timestamp: '2023-11-09T22:04:07+00:00'
+timestamp: '2023-12-14T10:00:39+00:00'
 requested_by: ZodmanPerth
 provider: github
 branch: master
-detected_tools_count: 9
+detected_tools_count: 11
 tools:
 - name: ASP.NET
   description: An open source web framework for building modern web apps and services
@@ -17,8 +17,8 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/6755/2c45151a4a11d3a3c8e71bb34dd069d6_400x400.png
-  detection_source_url: Darecali.Deployment/Darecali.Deployment.csproj
-  detection_source: Darecali/Darecali.csproj
+  detection_source_url: https://github.com/ZodmanPerth/Darecali/blob/master/Darecali.Deployment/Darecali.Deployment.csproj
+  detection_source: Darecali.Deployment/Darecali.Deployment.csproj
   last_updated_by: Carl Scarlett
   last_updated_on: 2016-03-22 00:05:43.000000000 Z
 - name: C#
@@ -44,6 +44,17 @@ tools:
   detection_source: Darecali.Tests/packages.config
   last_updated_by: Carl Scarlett
   last_updated_on: 2016-02-17 04:32:51.000000000 Z
+- name: pgvector
+  description: Open-source vector similarity search for Postgres
+  website_url: https://github.com/pgvector/pgvector/
+  open_source: false
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Database Tools
+  image_url: https://img.stackshare.io/service/109221/default_b888cdf5617d936aa6aacf130911906955508639.png
+  detection_source: Darecali/License.txt
+  last_updated_by: Carl Scarlett
+  last_updated_on: 2016-03-22 08:14:15.000000000 Z
 - name: Git
   description: Fast, scalable, distributed revision control system
   website_url: http://git-scm.com/
@@ -87,6 +98,17 @@ tools:
   detection_source: Darecali.sln
   last_updated_by: Carl Scarlett
   last_updated_on: 2016-06-02 08:51:35.000000000 Z
+- name: LangChain
+  description: Build AI apps with LLMs through composability
+  website_url: https://github.com/hwchase17/langchain
+  open_source: true
+  hosted_saas: false
+  category: Communications
+  sub_category: Large Language Model Tools
+  image_url: https://img.stackshare.io/service/48790/default_5b6c6b73f1ff3775c85d2a1ba954cb87e30cbf13.jpg
+  detection_source: Darecali/License.txt
+  last_updated_by: Carl Scarlett
+  last_updated_on: 2016-03-22 08:14:15.000000000 Z
 - name: PowerShell
   description: A task automation and configuration management framework
   website_url: https://docs.microsoft.com/en-us/powershell/
@@ -105,7 +127,7 @@ tools:
   category: Libraries
   sub_category: NuGet Packages
   image_url: https://img.stackshare.io/package/13821/default_d358fd76413e7b8cc458411fede039268825f8c2.png
-  detection_source_url: Darecali.Tests/packages.config
+  detection_source_url: https://github.com/ZodmanPerth/Darecali/blob/master/Darecali.Tests/packages.config
   detection_source: Darecali.Tests/packages.config
   last_updated_by: Carl Scarlett
   last_updated_on: 2016-05-28 01:48:10.000000000 Z
